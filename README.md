@@ -1,5 +1,5 @@
 # README.md
-## Forms as a Service (aka FaaS, forms.gov)
+## Forms as a Service
 
 Please fix this README.md, it needs work!
 
