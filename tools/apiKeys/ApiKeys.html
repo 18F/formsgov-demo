@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>API Keys</title>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="apiKeys.js" defer></script>
+  </head>
+  <body>
+    <h1>API Field Value Tester</h1>
+
+    <p>The purpose of this page is to provide a webpage where each form page is displayed, 
+      along with the API Key names of each of the fields on the page.  Note that this page 
+      isn't very pretty, and doesn't have a bunch of error checking, but it was written as 
+      a tool to help the form designers, developers, and testers.</p>
+
+    <p>Some sample form API links are: </p>
+    <ul>
+      <li>https://dev-portal.fs.gsa.gov/faas/mtwform</li>
+      <li>https://dev-portal.fs.gsa.gov/faas/hud903</li>
+    </ul>
+
+    <section id="control-center">
+      <input type="text" placeholder="Type the URL to the form json..." id="formJsonLink">
+      <button id="get-btn">Get API Key names by Page</button>
+    </section>
+    <p></p>
+    <div>Result: 
+      <p></p>
+      <div id="apiResult"></div>
+    </div>
+  </body>
+</html>
