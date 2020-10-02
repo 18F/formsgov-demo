@@ -87,7 +87,7 @@ public class UserResourceIT {
 
     @BeforeEach
     public void initTest() {
-     //   userRepository.deleteAllUserAuthorities().block();
+        userRepository.deleteAllUserAuthorities().block();
         userRepository.deleteAll().block();
         user = createEntity();
         user.setLogin(DEFAULT_LOGIN);
