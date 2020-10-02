@@ -1,0 +1,6 @@
+  ${AnsiColor.GREEN} ____    __      __    ___
+  ${AnsiColor.GREEN}( ___)  /__\    /__\  / __)
+  ${AnsiColor.GREEN} )__)  /(__)\  /(__)\ \__ \
+  ${AnsiColor.GREEN}(__)  (__)(__)(__)(__)(___/
+
+${AnsiColor.BRIGHT_BLUE}::: Running Spring Boot ${spring-boot.version} :: Java Version ${java.version}
