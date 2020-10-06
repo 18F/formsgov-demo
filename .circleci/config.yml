@@ -5,7 +5,6 @@ jobs:
             image: circleci/classic:201808-01
         steps:
             - checkout
-
             # Download and cache dependencies
             - restore_cache:
                 keys:
