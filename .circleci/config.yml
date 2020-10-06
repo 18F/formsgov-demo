@@ -63,4 +63,4 @@ jobs:
                 command: npm run test-ci
             - run:
                 name: Verify with Prod Profile
-                command: './gradlew bootJar -Pprod -x test --no-daemon'
+                command: './gradlew bootJar -Pprod -x test -x integrationTest --no-daemon'
