@@ -41,7 +41,7 @@
   "devDependencies": {
     "@openapitools/openapi-generator-cli": "1.0.13-4.3.1",
     "@types/chai": "4.2.11",
-    "@types/enzyme": "3.10.5",
+    "@types/enzyme": "^3.10.7",
     "@types/jest": "25.2.1",
     "@types/lodash": "4.14.150",
     "@types/mocha": "7.0.2",
@@ -61,7 +61,7 @@
     "cache-loader": "4.1.0",
     "chai": "4.2.0",
     "chai-as-promised": "7.1.1",
-    "copy-webpack-plugin": "5.1.1",
+    "copy-webpack-plugin": "^5.1.1",
     "core-js": "3.6.5",
     "cross-env": "7.0.2",
     "css-loader": "3.5.3",
