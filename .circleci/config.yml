@@ -53,9 +53,6 @@ jobs:
                 name: Give Executable Power
                 command: 'chmod +x gradlew'
             - run:
-                name: Run Style Checks
-                command: './gradlew checkstyleNohttp --no-daemon'
-            - run:
                 name: Clean and Verify
                 command: './gradlew clean test integrationTest --no-daemon'
             - run:
