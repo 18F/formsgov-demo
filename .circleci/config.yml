@@ -55,6 +55,7 @@ jobs:
     unit-test:
         machine:
           image: circleci/classic:201808-01
+        working_directory: ~/repo
         steps:
             - run:
                 name: Run Unit Test
@@ -63,6 +64,7 @@ jobs:
     integration-test:
         machine:
            image: circleci/classic:201808-01
+        working_directory: ~/repo
         steps:
           - run:
               name: Run Integration Test
@@ -71,6 +73,7 @@ jobs:
     front-end-test:
         machine:
             image: circleci/classic:201808-01
+        working_directory: ~/repo
         steps:
             - run:
                 name: Run Front End Tests
@@ -78,6 +81,7 @@ jobs:
     verify:
         machine:
            image: circleci/classic:201808-01
+        working_directory: ~/repo
         steps:
           - run:
               name: Verify with Prod Profile
