@@ -91,10 +91,8 @@ workflows:
         - front-end-test:
             requires:
               - build
-    verify:
-      jobs:
         - verify:
             requires:
               - unit-test
-              - integration-test
+              - integration-testß
               - front-end-test
