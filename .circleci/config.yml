@@ -87,12 +87,16 @@ workflows:
       jobs:
         - build
         - unit-test
+           requires:
+            - build
         - integration-test
+            requires:
+               - build
         - front-end-test
             requires:
               - build
         - verify
             requires:
               - unit-test
-              - integration-testß
+              - integration-test
               - front-end-test
