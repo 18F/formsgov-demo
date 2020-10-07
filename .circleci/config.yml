@@ -82,7 +82,7 @@ jobs:
               command: './gradlew bootJar -Pprod -x test -x integrationTest --no-daemon'
 
 
-  workflow:
+  workflows:
     version: 2.1
     build-and-test:
       jobs:
