@@ -76,8 +76,8 @@ jobs:
                 name: Run Front End Tests
                 command: npm run test-ci
     verify:
-      machine:
-        image: circleci/classic:201808-01
+        machine:
+           image: circleci/classic:201808-01
         steps:
           - run:
               name: Verify with Prod Profile
