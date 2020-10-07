@@ -83,7 +83,6 @@ jobs:
 
 
   workflows:
-    version: 2.1
     build-and-test:
       jobs:
         - build
