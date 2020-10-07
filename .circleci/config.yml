@@ -48,16 +48,54 @@ jobs:
                     - node_modules
                     - ~/.gradle
                 key: v1-dependencies-{{ checksum "build.gradle" }}-{{ checksum "package-lock.json" }}
-
             - run:
                 name: Give Executable Power
                 command: 'chmod +x gradlew'
+
+    unit-test:
+        machine:
+          image: circleci/classic:201808-01
+        steps:
             - run:
-                name: Clean and Verify
-                command: './gradlew clean test integrationTest --no-daemon'
+                name: Run Unit Test
+                command: './gradlew clean test  --no-daemon'
+
+    integration-test:
+        machine:
+           image: circleci/classic:201808-01
+        steps:
+          - run:
+              name: Run Integration Test
+              command: './gradlew clean integrationTest --no-daemon'
+
+    front-end-test:
+        machine:
+            image: circleci/classic:201808-01
+        steps:
             - run:
                 name: Run Front End Tests
                 command: npm run test-ci
-            - run:
-                name: Verify with Prod Profile
-                command: './gradlew bootJar -Pprod -x test -x integrationTest --no-daemon'
+    verify:
+        steps:
+          - run:
+              name: Verify with Prod Profile
+              command: './gradlew bootJar -Pprod -x test -x integrationTest --no-daemon'
+
+
+  workflow:
+    version: 2.1
+    build-and-test:
+      jobs:
+        - build
+        - unit-test:
+        - integration-test:
+        - front-end-test:
+            requires:
+              - build
+    verify:
+      jobs:
+        - verify:
+            requires:
+              - unit-test
+              - integration-test
+              - front-end-test
