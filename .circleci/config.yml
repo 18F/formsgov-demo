@@ -84,20 +84,20 @@ jobs:
 
 workflows:
   version: 2
-    build-and-test:
-      jobs:
-        - build
-        - unit-test:
-            requires:
-              - build
-        - integration-test:
-            requires:
-              - build
-        - front-end-test:
-            requires:
-              - build
-        - verify
-            requires:
-              - unit-test
-              - integration-test
-              - front-end-test
+  build_and_test:
+    jobs:
+      - build
+      - unit-test:
+          requires:
+            - build
+      - integration-test:
+          requires:
+            - build
+      - front-end-test:
+          requires:
+            - build
+      - verify
+        requires:
+          - unit-test
+          - integration-test
+          - front-end-test
