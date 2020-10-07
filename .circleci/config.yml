@@ -96,7 +96,7 @@ workflows:
       - front-end-test:
           requires:
             - build
-      - verify
+      - verify:
           requires:
             - unit-test
             - integration-test
