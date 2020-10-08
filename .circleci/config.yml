@@ -61,7 +61,7 @@ jobs:
         steps:
             - getdependencies
             - run:
-                name: Run Integration Test
+                name: clean and build
                 command: './gradlew clean build -x test -x integrationTest --no-daemon'
 
     unit-test:
@@ -93,7 +93,6 @@ jobs:
           - run:
               name: Verify with Prod Profile
               command: './gradlew bootJar -Pprod -x test -x integrationTest --no-daemon'
-
 
 workflows:
   version: 2
