@@ -67,6 +67,7 @@ jobs:
     unit-test:
         executor: ci-executor
         steps:
+            - getdependencies
             - run:
                 name: Run Unit Test
                 command: './gradlew clean test  --no-daemon'
