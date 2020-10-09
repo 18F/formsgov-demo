@@ -14,8 +14,7 @@ class ArchTest {
 
         JavaClasses importedClasses = new ClassFileImporter()
             .withImportOption(ImportOption.Predefined.DO_NOT_INCLUDE_TESTS)
-            .importPackages("gov.gsa.faas");
-
+            .importPackages("gov.gsa.fass");
         noClasses()
             .that()
                 .resideInAnyPackage("gov.gsa.faas.service..")
