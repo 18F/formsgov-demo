@@ -66,7 +66,7 @@ public class UserMapperTest {
     @Test
     public void userDTOsToUsersWithAuthoritiesStringShouldMapToUsersWithAuthoritiesDomain() {
         Set<String> authoritiesAsString = new HashSet<>();
-        authoritiesAsString.add("ADMIN");
+        authoritiesAsString.add("ADMIN-");
         userDto.setAuthorities(authoritiesAsString);
 
         List<UserDTO> usersDto = new ArrayList<>();
