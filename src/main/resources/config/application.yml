@@ -121,12 +121,11 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://localhost:9080/auth/realms/formservice
+            issuer-uri: https://dev-813240.okta.com/oauth2/default
         registration:
           oidc:
-            client-id: web_app
-            client-secret: web_app
-
+            client-id: 0oa1hcbgrncuw9uFe4x7
+            client-secret: n3oTLOZZu_Xh9Rl-iph_OWxtMXIUWZuddPR480Lk
 server:
   port: 8181
   servlet.context-path: /faas
