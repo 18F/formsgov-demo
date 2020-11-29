@@ -121,17 +121,21 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://localhost:9080/auth/realms/jhipster
+            issuer-uri: http://localhost:9080/auth/realms/formservice
         registration:
           oidc:
             client-id: web_app
             client-secret: web_app
 
 server:
+  port: 8181
+  servlet.context-path: /faas
   servlet:
     session:
       cookie:
-        http-only: true
+        name: FASSSESSIONID
+        path: /
+        http-only: false
 
 # Properties to be exposed on the /info management endpoint
 info:
@@ -183,3 +187,4 @@ jhipster:
 # ===================================================================
 
 # application:
+
