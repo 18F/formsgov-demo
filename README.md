@@ -1,4 +1,4 @@
-# FaaS (Forms as a Service)  [![CircleCI](https://circleci.com/gh/18F/formservice.svg?style=svg)](https://app.circleci.com/pipelines/github/18F)
+# FaaS (Forms as a Service) [![CircleCI](https://circleci.com/gh/18F/formservice.svg?style=svg)](https://app.circleci.com/pipelines/github/18F)
 
 This is the main repository for the FormService / Forms as a Service (FaaS) microservice. There is a companion repository containing tools.
 
@@ -74,7 +74,7 @@ spring:
       client:
         provider:
           oidc:
-            issuer-uri: http://localhost:9080/auth/realms/jhipster
+            issuer-uri: http://localhost:9080/auth/realms/formservice
         registration:
           oidc:
             client-id: web_app
