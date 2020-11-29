@@ -128,7 +128,7 @@ spring:
             client-secret: n3oTLOZZu_Xh9Rl-iph_OWxtMXIUWZuddPR480Lk
 server:
   port: 8181
-  servlet.context-path: /faas
+  #  servlet.context-path: /faas
   servlet:
     session:
       cookie:
@@ -150,14 +150,14 @@ info:
 jhipster:
   clientApp:
     name: 'faasApp'
-  # By default CORS is disabled. Uncomment to enable.
-  # cors:
-  #     allowed-origins: "*"
-  #     allowed-methods: "*"
-  #     allowed-headers: "*"
-  #     exposed-headers: "Authorization,Link,X-Total-Count"
-  #     allow-credentials: true
-  #     max-age: 1800
+  #   By default CORS is disabled. Uncomment to enable.
+  cors:
+    allowed-origins: '*'
+    allowed-methods: '*'
+    allowed-headers: '*'
+    exposed-headers: 'Authorization,Link,X-Total-Count'
+    allow-credentials: true
+    max-age: 1800
   mail:
     from: faas@localhost
   swagger:

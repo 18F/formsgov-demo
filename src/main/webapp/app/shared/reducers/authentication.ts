@@ -76,7 +76,7 @@ export const displayAuthError = message => ({ type: ACTION_TYPES.ERROR_MESSAGE, 
 export const getSession: () => void = () => (dispatch, getState) => {
   dispatch({
     type: ACTION_TYPES.GET_SESSION,
-    payload: axios.get('faas/api/account'),
+    payload: axios.get('api/account'),
   });
 };
 

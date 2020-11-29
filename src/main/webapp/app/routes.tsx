@@ -20,7 +20,7 @@ const Routes = () => (
     <Switch>
       <ErrorBoundaryRoute path="/logout" component={Logout} />
       <PrivateRoute path="/admin" component={Admin} hasAnyAuthorities={[AUTHORITIES.ADMIN]} />
-      <ErrorBoundaryRoute path="/faas" exact component={Home} />
+      <ErrorBoundaryRoute path="/" exact component={Home} />
       {/* <PrivateRoute path="/" component={Entities} hasAnyAuthorities={[AUTHORITIES.USER]} /> */}
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
