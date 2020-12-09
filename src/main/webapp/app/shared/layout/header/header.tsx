@@ -1,54 +1,71 @@
 import './header.scss';
-
 import React, { useState } from 'react';
-
-import { Navbar, Nav, NavbarToggler, NavbarBrand, Collapse } from 'reactstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-
-import { NavLink as Link } from 'react-router-dom';
-import LoadingBar from 'react-redux-loading-bar';
-
-import { Home, Brand } from './header-components';
-import { AdminMenu, EntitiesMenu, AccountMenu } from '../menus';
-
-export interface IHeaderProps {
-  isAuthenticated: boolean;
-  isAdmin: boolean;
-  ribbonEnv: string;
-  isInProduction: boolean;
-  isSwaggerEnabled: boolean;
-}
-
-const Header = (props: IHeaderProps) => {
-  const [menuOpen, setMenuOpen] = useState(false);
-
-  const renderDevRibbon = () =>
-    props.isInProduction === false ? (
-      <div className="ribbon dev">
-        <a href="">Development</a>
-      </div>
-    ) : null;
-
-  const toggleMenu = () => setMenuOpen(!menuOpen);
-
-  /* jhipster-needle-add-element-to-menu - JHipster will add new menu items here */
-
+import { Link } from 'react-router-dom';
+// tslint:disable-next-line
+const close = require('../../../../content/images/close.png');
+// tslint:disable-next-line
+const logo = require('../../../../content/images/faas-logo.svg');
+const Header = props => {
   return (
-    <div id="app-header">
-      {renderDevRibbon()}
-      <LoadingBar className="loading-bar" />
-      <Navbar dark expand="sm" fixed="top" className="bg-primary">
-        <NavbarToggler aria-label="Menu" onClick={toggleMenu} />
-        <Brand />
-        <Collapse isOpen={menuOpen} navbar>
-          <Nav id="header-tabs" className="ml-auto" navbar>
-            <Home />
-            {props.isAuthenticated && <EntitiesMenu />}
-            {props.isAuthenticated && props.isAdmin && <AdminMenu showSwagger={props.isSwaggerEnabled} />}
-            <AccountMenu isAuthenticated={props.isAuthenticated} />
-          </Nav>
-        </Collapse>
-      </Navbar>
+    <div>
+      <div className="usa-overlay" />
+      <header className="usa-header usa-header--basic">
+        <div className="usa-nav-container">
+          <div className="usa-navbar">
+            <div className="usa-logo" id="basic-logo">
+              <Link to="/faas/ui">
+                <img src={logo} role="img" alt="Form Service" />
+              </Link>
+            </div>
+            <button className="usa-menu-btn ml-2">Menu</button>
+          </div>
+          <nav aria-label="Primary navigation" className="usa-nav">
+            <button className="usa-nav__close">
+              <img src={close} role="img" alt="close" />
+            </button>
+            <ul className="usa-nav__primary usa-accordion">
+              <li className="usa-nav__primary-item">
+                <button
+                  className="usa-accordion__button usa-nav__link  usa-current"
+                  aria-expanded="false"
+                  aria-controls="basic-nav-section-one"
+                >
+                  <span>Forms</span>
+                </button>
+                <ul id="basic-nav-section-one" className="usa-nav__submenu">
+                  <li className="usa-nav__submenu-item">
+                    <Link to="/faas/ui/fheo">FHEO</Link>
+                  </li>
+                  <li className="usa-nav__submenu-item">
+                    <a href="#" className="">
+                      {' '}
+                      MTW
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li className="usa-nav__primary-item">
+                <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="basic-nav-section-two">
+                  <span>Dashboard</span>
+                </button>
+                <ul id="basic-nav-section-two" className="usa-nav__submenu">
+                  <li className="usa-nav__submenu-item">
+                    <a href="#" className="">
+                      {' '}
+                      Report
+                    </a>
+                  </li>
+                </ul>
+              </li>
+              <li className="usa-nav__primary-item">
+                <a className="usa-nav__link" href="javascript:void(0)">
+                  <span>Admin</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
     </div>
   );
 };

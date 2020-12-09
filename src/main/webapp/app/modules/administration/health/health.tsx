@@ -1,90 +1,111 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import { Table, Badge, Col, Row, Button } from 'reactstrap';
+import { Badge, Button, Col, Row, Table } from 'reactstrap';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { IRootState } from 'app/shared/reducers';
+import { IRootState } from '../../../../app/shared/reducers';
 import { systemHealth } from '../administration.reducer';
 import HealthModal from './health-modal';
 
 export interface IHealthPageProps extends StateProps, DispatchProps {}
 
-export const HealthPage = (props: IHealthPageProps) => {
-  const [healthObject, setHealthObject] = useState({});
-  const [showModal, setShowModal] = useState(false);
+export interface IHealthPageState {
+  healthObject: any;
+  showModal: boolean;
+}
 
-  useEffect(() => {
-    props.systemHealth();
-  }, []);
+export class HealthPage extends React.Component<IHealthPageProps, IHealthPageState> {
+  state: IHealthPageState = {
+    healthObject: {},
+    showModal: false
+  };
 
-  const getSystemHealth = () => {
-    if (!props.isFetching) {
-      props.systemHealth();
+  componentDidMount() {
+    this.props.systemHealth();
+  }
+
+  getSystemHealth = () => {
+    if (!this.props.isFetching) {
+      this.props.systemHealth();
     }
   };
 
-  const getSystemHealthInfo = (name, healthObj) => () => {
-    setShowModal(true);
-    setHealthObject({ ...healthObj, name });
+  getSystemHealthInfo = (name, healthObject) => () => {
+    this.setState({
+      showModal: true,
+      healthObject: {
+        ...healthObject,
+        name
+      }
+    });
   };
 
-  const handleClose = () => setShowModal(false);
+  handleClose = () => {
+    this.setState({
+      showModal: false
+    });
+  };
 
-  const renderModal = () => <HealthModal healthObject={healthObject} handleClose={handleClose} showModal={showModal} />;
+  renderModal = () => {
+    const { healthObject } = this.state;
+    return <HealthModal healthObject={healthObject} handleClose={this.handleClose} showModal={this.state.showModal} />;
+  };
 
-  const { health, isFetching } = props;
-  const data = (health || {}).components || {};
-
-  return (
-    <div>
-      <h2 id="health-page-heading">Health Checks</h2>
-      <p>
-        <Button onClick={getSystemHealth} color={isFetching ? 'btn btn-danger' : 'btn btn-primary'} disabled={isFetching}>
-          <FontAwesomeIcon icon="sync" />
-          &nbsp; Refresh
-        </Button>
-      </p>
-      <Row>
-        <Col md="12">
-          <Table bordered aria-describedby="health-page-heading">
-            <thead>
-              <tr>
-                <th>Service Name</th>
-                <th>Status</th>
-                <th>Details</th>
-              </tr>
-            </thead>
-            <tbody>
-              {Object.keys(data).map((configPropKey, configPropIndex) =>
-                configPropKey !== 'status' ? (
-                  <tr key={configPropIndex}>
-                    <td>{configPropKey}</td>
-                    <td>
-                      <Badge color={data[configPropKey].status !== 'UP' ? 'danger' : 'success'}>{data[configPropKey].status}</Badge>
-                    </td>
-                    <td>
-                      {data[configPropKey].details ? (
-                        <a onClick={getSystemHealthInfo(configPropKey, data[configPropKey])}>
-                          <FontAwesomeIcon icon="eye" />
-                        </a>
-                      ) : null}
-                    </td>
-                  </tr>
-                ) : null
-              )}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
-      {renderModal()}
-    </div>
-  );
-};
+  render() {
+    const { health, isFetching } = this.props;
+    const data = (health || {}).details || {};
+    return (
+      <div>
+        <h2 id="health-page-heading">Health Checks</h2>
+        <p>
+          <Button onClick={this.getSystemHealth} color={isFetching ? 'btn btn-danger' : 'btn btn-primary'} disabled={isFetching}>
+            <FontAwesomeIcon icon="sync" />
+            &nbsp; Refresh
+          </Button>
+        </p>
+        <Row>
+          <Col md="12">
+            <Table bordered>
+              <thead>
+                <tr>
+                  <th>Service Name</th>
+                  <th>Status</th>
+                  <th>Details</th>
+                </tr>
+              </thead>
+              <tbody>
+                {Object.keys(data).map(
+                  (configPropKey, configPropIndex) =>
+                    configPropKey !== 'status' ? (
+                      <tr key={configPropIndex}>
+                        <td>{configPropKey}</td>
+                        <td>
+                          <Badge color={data[configPropKey].status !== 'UP' ? 'danger' : 'success'}>{data[configPropKey].status}</Badge>
+                        </td>
+                        <td>
+                          {data[configPropKey].details ? (
+                            <a onClick={this.getSystemHealthInfo(configPropKey, data[configPropKey])}>
+                              <FontAwesomeIcon icon="eye" />
+                            </a>
+                          ) : null}
+                        </td>
+                      </tr>
+                    ) : null
+                )}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+        {this.renderModal()}
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (storeState: IRootState) => ({
   health: storeState.administration.health,
-  isFetching: storeState.administration.loading,
+  isFetching: storeState.administration.loading
 });
 
 const mapDispatchToProps = { systemHealth };
@@ -92,4 +113,7 @@ const mapDispatchToProps = { systemHealth };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(HealthPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(HealthPage);

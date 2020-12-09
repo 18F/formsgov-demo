@@ -1,9 +1,9 @@
 // Override Boostrap variables
-@import '~bootswatch/dist/cosmo/variables';
+@import 'bootstrap-variables';
 // Import Bootstrap source files from node_modules
 @import 'node_modules/bootstrap/scss/bootstrap';
-@import '~bootswatch/dist/cosmo/bootswatch';
 body {
+  background: #fafafa;
   margin: 0;
 }
 
@@ -28,20 +28,14 @@ a {
     width: 100%;
     height: calc(100% - 40px);
     overflow-y: auto;
-    overflow-x: hidden;
-    padding: 1rem;
-    .card {
-      padding: 1rem;
-    }
-    .view-routes {
-      height: 100%;
-      > div {
-        height: 100%;
-      }
-    }
+    overflow-x: auto;
+    padding: 0rem 4.5rem 0 4.5rem;
+    background-color: #f1f1f1;
+    //background-color: rgba(97, 93, 93, 0.144);
+    position: fixed;
+    z-index: 1000;
   }
 }
-
 .fullscreen {
   position: fixed;
   top: 100px;
@@ -87,7 +81,7 @@ Custom button styles
 Generic styles
 ========================================================================== */
 
-/* Temporary workaround for availity-reactstrap-validation */
+/* Temperory workaround for availity-reactstrap-validation */
 .invalid-feedback {
   display: inline;
 }
@@ -310,4 +304,46 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   width: 1% !important;
 }
 
-/* jhipster-needle-scss-add-main JHipster will add new css style */
+// Fix checkbox alignment https://github.com/jhipster/generator-jhipster/issues/8463
+.form-check-input {
+  margin-top: -0.5rem;
+}
+
+.paper {
+  padding: 2;
+  text-align: center;
+}
+
+/* jhipster-needle-css-add-main JHipster will add new css style */
+#link .usa-button--unstyled {
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #0071bc;
+  text-decoration: underline;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: large;
+}
+#link .usa-button:hover {
+  background-color: #aeb0b5 !important;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #dee1e2;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 20px;
+}

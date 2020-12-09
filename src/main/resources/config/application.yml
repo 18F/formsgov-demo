@@ -14,132 +14,47 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
-# See https://github.com/Netflix/Hystrix/wiki/Configuration
-hystrix:
-  command:
-    default:
-      execution:
-        isolation:
-          thread:
-            timeoutInMilliseconds: 10000
-
 management:
   endpoints:
     web:
       base-path: /management
       exposure:
-        include: ['configprops', 'env', 'gateway', 'health', 'info', 'jhimetrics', 'logfile', 'loggers', 'prometheus', 'threaddump']
+        include: ["health"]
+        #include: ["configprops", "env", "health", "info", "threaddump", "logfile" ]
   endpoint:
     health:
-      show-details: when_authorized
-      roles: 'ROLE_ADMIN'
-    jhimetrics:
-      enabled: true
-  info:
-    git:
-      mode: full
-  health:
-    mail:
-      enabled: false # When using the MailService, configure an SMTP server and set this to true
-  metrics:
-    export:
-      # Prometheus is the default metrics backend
-      prometheus:
-        enabled: true
-        step: 60
-    enable:
-      http: true
-      jvm: true
-      logback: true
-      process: true
-      system: true
-    distribution:
-      percentiles-histogram:
-        all: true
-      percentiles:
-        all: 0, 0.5, 0.75, 0.95, 0.99, 1.0
-    tags:
-      application: ${spring.application.name}
-    web:
-      server:
-        request:
-          autotime:
-            enabled: true
+      show-details: WHEN_AUTHORIZED
 
 spring:
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration
+      - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
   application:
-    name: faas
-  cloud:
-    gateway:
-      default-filters:
-        - TokenRelay
-      discovery:
-        locator:
-          enabled: true
-          lower-case-service-id: true
-          predicates:
-            - name: Path
-              args:
-                pattern: "'/services/'+serviceId.toLowerCase()+'/**'"
-          filters:
-            - name: RewritePath
-              args:
-                regexp: "'/services/' + serviceId.toLowerCase() + '/(?<remaining>.*)'"
-                replacement: "'/${remaining}'"
-      httpclient:
-        pool:
-          max-connections: 1000
+    name: formservice
   profiles:
     # The commented value for `active` can be replaced with valid Spring profiles to load.
-    # Otherwise, it will be filled in by gradle when building the JAR file
+    # Otherwise, it will be filled in by gradle when building the WAR file
     # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
     active: #spring.profiles.active#
-  jmx:
-    enabled: false
   messages:
     basename: i18n/messages
-  main:
-    allow-bean-definition-overriding: true
-  task:
-    execution:
-      thread-name-prefix: faas-task-
-      pool:
-        core-size: 2
-        max-size: 50
-        queue-capacity: 10000
-    scheduling:
-      thread-name-prefix: faas-scheduling-
-      pool:
-        size: 2
   thymeleaf:
     mode: HTML
-  output:
-    ansi:
-      console-available: true
-  security:
-    oauth2:
-      client:
-        provider:
-          oidc:
-            issuer-uri: https://dev-813240.okta.com/oauth2/default
-        registration:
-          oidc:
-            client-id: 0oa1hcbgrncuw9uFe4x7
-            client-secret: n3oTLOZZu_Xh9Rl-iph_OWxtMXIUWZuddPR480Lk
 server:
   port: 8181
-  #  servlet.context-path: /faas
+  servlet.context-path: /faas
   servlet:
     session:
       cookie:
-        name: FASSSESSIONID
+        name: FAASESSIONID
         path: /
         http-only: false
 
 # Properties to be exposed on the /info management endpoint
 info:
   # Comma separated list of profiles that will trigger the ribbon to show
-  display-ribbon-on-profiles: 'dev'
+  display-ribbon-on-profiles: "dev"
 
 # ===================================================================
 # JHipster specific properties
@@ -148,34 +63,19 @@ info:
 # ===================================================================
 
 jhipster:
-  clientApp:
-    name: 'faasApp'
-  #   By default CORS is disabled. Uncomment to enable.
+  async:
+    core-pool-size: 2
+    max-pool-size: 50
+    queue-capacity: 10000
+  # By default CORS is disabled. Uncomment to enable.
   cors:
-    allowed-origins: '*'
-    allowed-methods: '*'
-    allowed-headers: '*'
-    exposed-headers: 'Authorization,Link,X-Total-Count'
+    allowed-origins: "*"
+    allowed-methods: "*"
+    allowed-headers: "*"
+    exposed-headers: "Authorization,Link,X-Total-Count"
     allow-credentials: true
     max-age: 1800
-  mail:
-    from: faas@localhost
-  swagger:
-    default-include-pattern: /api/.*
-    title: faas API
-    description: faas API documentation
-    version: 0.0.1
-    terms-of-service-url:
-    contact-name:
-    contact-url:
-    contact-email:
-    license: unlicensed
-    license-url:
-  security:
-    oauth2:
-      audience:
-        - account
-        - api://default
+
 # ===================================================================
 # Application specific properties
 # Add your own application properties here, see the ApplicationProperties class
@@ -186,4 +86,6 @@ jhipster:
 # ===================================================================
 
 # application:
-
+logging:
+    file:
+        name: build/formservice.log

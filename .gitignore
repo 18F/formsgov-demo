@@ -2,7 +2,7 @@
 # Project Specific
 ######################
 /src/main/webapp/content/css/main.css
-/build/resources/main/static/**
+/build/www/**
 /src/test/javascript/coverage/
 
 ######################
@@ -51,11 +51,8 @@ local.properties
 # PDT-specific
 .buildpath
 
-# STS-specific
-/.sts4-cache/*
-
 ######################
-# IntelliJ
+# Intellij
 ######################
 .idea/
 *.iml
@@ -146,3 +143,5 @@ Desktop.ini
 # ESLint
 ######################
 .eslintcache
+.springBeans
+report.20200206.173324.13764.0.001.json

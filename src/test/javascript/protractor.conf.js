@@ -1,6 +1,7 @@
+const os = require('os');
 
 exports.config = {
-  allScriptsTimeout: 60000,
+  allScriptsTimeout: 20000,
 
   specs: [
     './e2e/modules/account/*.spec.ts',
@@ -28,9 +29,9 @@ exports.config = {
 
   mochaOpts: {
     reporter: 'spec',
-    slow: 6000,
+    slow: 3000,
     ui: 'bdd',
-    timeout: 60000
+    timeout: 30000
   },
 
   beforeLaunch () {
@@ -52,9 +53,5 @@ exports.config = {
     chai.use(chaiAsPromised);
     // @ts-ignore
     global.chai = chai;
-  },
-  params: {
-    waitTimeoutInMillis: 10000,
-    logWaitErrors: false
   }
 };

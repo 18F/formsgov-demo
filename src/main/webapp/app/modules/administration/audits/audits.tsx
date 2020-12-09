@@ -1,18 +1,22 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps } from 'react-router';
 import { Input, Row, Table } from 'reactstrap';
-import { TextFormat, JhiPagination, JhiItemCount, getSortState, IPaginationBaseState } from 'react-jhipster';
+import { getPaginationItemsNumber, getSortState, IPaginationBaseState, JhiPagination, TextFormat } from 'react-jhipster';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import { APP_TIMESTAMP_FORMAT } from 'app/config/constants';
-import { ITEMS_PER_PAGE } from 'app/shared/util/pagination.constants';
-import { overridePaginationStateWithQueryParams } from 'app/shared/util/entity-utils';
+import { APP_TIMESTAMP_FORMAT } from '../../../../app/config/constants';
+import { ITEMS_PER_PAGE } from '../../../../app/shared/util/pagination.constants';
 
-import { IRootState } from 'app/shared/reducers';
+import { IRootState } from '../../../../app/shared/reducers';
 import { getAudits } from '../administration.reducer';
 
 export interface IAuditsPageProps extends StateProps, DispatchProps, RouteComponentProps<{}> {}
+
+export interface IAuditsPageState extends IPaginationBaseState {
+  fromDate: string;
+  toDate: string;
+}
 
 const previousMonth = (): string => {
   const now: Date = new Date();
@@ -31,88 +35,78 @@ const today = (): string => {
   return toDate.toISOString().slice(0, 10);
 };
 
-export const AuditsPage = (props: IAuditsPageProps) => {
-  const [pagination, setPagination] = useState(
-    overridePaginationStateWithQueryParams(getSortState(props.location, ITEMS_PER_PAGE), props.location.search)
-  );
-  const [fromDate, setFromDate] = useState(previousMonth());
-  const [toDate, setToDate] = useState(today());
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    getAllAudits();
-  }, [fromDate, toDate, pagination.activePage, pagination.order, pagination.sort]);
-
-  useEffect(() => {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    transition();
-  }, [pagination.activePage, pagination.order, pagination.sort]);
-
-  useEffect(() => {
-    const params = new URLSearchParams(props.location.search);
-    const page = params.get('page');
-    const sort = params.get('sort');
-    if (page && sort) {
-      const sortSplit = sort.split(',');
-      setPagination({
-        ...pagination,
-        activePage: +page,
-        sort: sortSplit[0],
-        order: sortSplit[1],
-      });
-    }
-  }, [props.location.search]);
-
-  const onChangeFromDate = evt => setFromDate(evt.target.value);
-
-  const onChangeToDate = evt => setToDate(evt.target.value);
-
-  const sort = p => () =>
-    setPagination({
-      ...pagination,
-      order: pagination.order === 'asc' ? 'desc' : 'asc',
-      sort: p,
-    });
-
-  const transition = () => {
-    const endURL = `?page=${pagination.activePage}&sort=${pagination.sort},${pagination.order}`;
-    if (props.location.search !== endURL) {
-      props.history.push(`${props.location.pathname}${endURL}`);
-    }
+export class AuditsPage extends React.Component<IAuditsPageProps, IAuditsPageState> {
+  state: IAuditsPageState = {
+    ...getSortState(this.props.location, ITEMS_PER_PAGE),
+    fromDate: previousMonth(),
+    toDate: today()
   };
 
-  const handlePagination = currentPage =>
-    setPagination({
-      ...pagination,
-      activePage: currentPage,
-    });
+  componentDidMount() {
+    this.getAudits();
+  }
 
-  const getAllAudits = () => {
-    props.getAudits(pagination.activePage - 1, pagination.itemsPerPage, `${pagination.sort},${pagination.order}`, fromDate, toDate);
+  onChangeFromDate = evt => {
+    this.setState(
+      {
+        fromDate: evt.target.value
+      },
+      () => this.getAudits()
+    );
+  };
+  onChangeToDate = evt => {
+    this.setState(
+      {
+        toDate: evt.target.value
+      },
+      () => this.getAudits()
+    );
   };
 
-  const { audits, totalItems } = props;
+  sort = prop => () => {
+    this.setState(
+      {
+        order: this.state.order === 'asc' ? 'desc' : 'asc',
+        sort: prop
+      },
+      () => this.transition()
+    );
+  };
 
-  return (
-    <div>
-      <h2 id="audits-page-heading">Audits</h2>
-      <span>from</span>
-      <Input type="date" value={fromDate} onChange={onChangeFromDate} name="fromDate" id="fromDate" />
-      <span>to</span>
-      <Input type="date" value={toDate} onChange={onChangeToDate} name="toDate" id="toDate" />
-      {audits && audits.length > 0 ? (
+  transition = () => {
+    this.getAudits();
+    this.props.history.push(`${this.props.location.pathname}?page=${this.state.activePage}&sort=${this.state.sort},${this.state.order}`);
+  };
+
+  handlePagination = activePage => this.setState({ activePage }, () => this.transition());
+
+  getAudits = () => {
+    const { activePage, itemsPerPage, sort, order, fromDate, toDate } = this.state;
+    this.props.getAudits(activePage - 1, itemsPerPage, `${sort},${order}`, fromDate, toDate);
+  };
+
+  render() {
+    const { audits, totalItems } = this.props;
+    const { fromDate, toDate } = this.state;
+    return (
+      <div>
+        <h2 id="audits-page-heading">Audits</h2>
+        <span>from</span>
+        <Input type="date" value={fromDate} onChange={this.onChangeFromDate} name="fromDate" id="fromDate" />
+        <span>to</span>
+        <Input type="date" value={toDate} onChange={this.onChangeToDate} name="toDate" id="toDate" />
         <Table striped responsive>
           <thead>
             <tr>
-              <th onClick={sort('auditEventDate')}>
+              <th onClick={this.sort('auditEventDate')}>
                 Date
                 <FontAwesomeIcon icon="sort" />
               </th>
-              <th onClick={sort('principal')}>
+              <th onClick={this.sort('principal')}>
                 User
                 <FontAwesomeIcon icon="sort" />
               </th>
-              <th onClick={sort('auditEventType')}>
+              <th onClick={this.sort('auditEventType')}>
                 State
                 <FontAwesomeIcon icon="sort" />
               </th>
@@ -133,34 +127,22 @@ export const AuditsPage = (props: IAuditsPageProps) => {
             ))}
           </tbody>
         </Table>
-      ) : (
-        <div className="alert alert-warning">No audit found</div>
-      )}
-      {props.totalItems ? (
-        <div className={audits && audits.length > 0 ? '' : 'd-none'}>
-          <Row className="justify-content-center">
-            <JhiItemCount page={pagination.activePage} total={totalItems} itemsPerPage={pagination.itemsPerPage} i18nEnabled />
-          </Row>
-          <Row className="justify-content-center">
-            <JhiPagination
-              activePage={pagination.activePage}
-              onSelect={handlePagination}
-              maxButtons={5}
-              itemsPerPage={pagination.itemsPerPage}
-              totalItems={props.totalItems}
-            />
-          </Row>
-        </div>
-      ) : (
-        ''
-      )}
-    </div>
-  );
-};
+        <Row className="justify-content-center">
+          <JhiPagination
+            items={getPaginationItemsNumber(totalItems, this.state.itemsPerPage)}
+            activePage={this.state.activePage}
+            onSelect={this.handlePagination}
+            maxButtons={5}
+          />
+        </Row>
+      </div>
+    );
+  }
+}
 
 const mapStateToProps = (storeState: IRootState) => ({
   audits: storeState.administration.audits,
-  totalItems: storeState.administration.totalItems,
+  totalItems: storeState.administration.totalItems
 });
 
 const mapDispatchToProps = { getAudits };
@@ -168,4 +150,7 @@ const mapDispatchToProps = { getAudits };
 type StateProps = ReturnType<typeof mapStateToProps>;
 type DispatchProps = typeof mapDispatchToProps;
 
-export default connect(mapStateToProps, mapDispatchToProps)(AuditsPage);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(AuditsPage);

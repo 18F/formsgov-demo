@@ -1,0 +1,134 @@
+import org.gradle.internal.os.OperatingSystem
+
+configurations {
+    liquibase
+}
+
+dependencies {
+    liquibase "org.liquibase.ext:liquibase-hibernate5:${liquibase_hibernate5_version}"
+}
+
+
+if (OperatingSystem.current().isWindows()) {
+	 if (System.getenv('PSQL_BIN') == null) {
+	         ext.psql = "C:/PostgreSQL/pg11/bin/psql.exe"
+	    } else {
+	        ext.psql = System.getenv('PSQL_BIN')
+	    }
+} else {
+    if (System.getenv('PSQL_BIN') == null) {
+        ext.psql = "/usr/bin/psql"
+    } else {
+        ext.psql = System.getenv('PSQL_BIN')
+    }
+}
+
+
+
+def runpsql(String sqlFile, String dbConnection) {
+	println "Running " + sqlFile
+	exec {
+		ignoreExitValue true
+		environment 'PGPASSWORD', "${databasePassword}"
+		executable psql
+		args '-h', "${databaseHost}",
+			'-p', "${databasePort}",
+			'-U', "${databaseAdmin}",
+			'-d', "${dbConnection}",
+			'-f', "${sqlFile}",
+			'-v', "databaseName=${databaseName}",
+			'-v', "databaseAdmin=${databaseAdmin}",
+			'-v', "databaseSchema=${databaseSchema}",
+			'-v', "liquibaseSchema=${liquibaseSchema}",
+			'-v', "databaseAppUser=${databaseAppUser}",
+			'-v', "databaseAppRole=${databaseAppRole}",
+			'-v', "databaseAppUserPassword=${databaseAppUserPassword}",
+			'-v', "databaseNameQuotes=${databaseNameQuotes}"
+	}
+}
+
+
+task baseline << {
+    runpsql('src/main/resources/config/liquibase/baseline/drop-schema.sql', "${databaseName}")
+    runpsql('src/main/resources/config/liquibase/baseline/drop-user.sql', "${databaseName}")
+    runpsql('src/main/resources/config/liquibase/baseline/drop-database.sql', 'postgres')
+    runpsql('src/main/resources/config/liquibase/baseline/create-database.sql', 'postgres')
+    runpsql('src/main/resources/config/liquibase/baseline/initialize-database.sql', "${databaseName}")
+}
+
+ if (OperatingSystem.current().isWindows()) {
+    task pathingLiquibaseJar(type: Jar) {
+        dependsOn configurations.runtime
+        appendix = 'pathing'
+
+        doFirst {
+            manifest {
+                attributes 'Class-Path': configurations.runtime.files.collect {
+                    it.toURI().toURL().toString().replaceFirst(/file:\/+/, '/').replaceAll(' ', '%20')
+                }.join(' ')
+            }
+        }
+    }
+
+}
+
+task initPaths(dependsOn: compileJava) {
+    group = "liquibase"
+    if (OperatingSystem.current().isWindows()) {
+        dependsOn pathingLiquibaseJar
+	}
+}
+
+def changeLog  = "--changeLogFile=src/main/resources/config/liquibase/changelog.xml"
+def changeLogMock = "--changeLogFile=src/main/resources/config/liquibase/update/mock/changeLogMock.xml"
+
+def liquibaseCommand(command, changeLogType) {
+    javaexec {
+        if (OperatingSystem.current().isWindows()) {
+            classpath files(pathingLiquibaseJar.archivePath)
+        } else {
+            classpath sourceSets.main.runtimeClasspath
+            classpath configurations.liquibase
+        }
+        main = "liquibase.integration.commandline.Main"
+
+        args changeLogType
+        args "--referenceUrl=hibernate:spring:gov.gsa.form.service.domain?dialect=org.hibernate.dialect.PostgreSQL82Dialect&hibernate.physical_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy&hibernate.implicit_naming_strategy=org.springframework.boot.orm.jpa.hibernate.SpringImplicitNamingStrategy"
+        args "--username=${databaseAdmin}"
+        args "--password=${databasePassword}"
+        args "--defaultSchemaName=${databaseSchema}"
+        args "--url=jdbc:postgresql://${databaseHost}:${databasePort}/${databaseName}"
+        args "--driver=org.postgresql.Driver"
+        args command
+    }
+}
+
+task liquibaseDiffChangeLog(dependsOn: initPaths) {
+    doLast {
+        liquibaseCommand("diffChangeLog", changeLog)
+    }
+}
+
+task liquibaseClearChecksums(dependsOn: initPaths) {
+    doLast {
+        liquibaseCommand("clearChecksums", changeLog)
+    }
+}
+
+task liquibaseUpdate(dependsOn: initPaths) {
+    doLast {
+        liquibaseCommand("update", changeLog)
+    }
+}
+
+task loadMockData(dependsOn: initPaths) {
+    doLast {
+        liquibaseCommand("update", changeLogMock)
+    }
+}
+
+def buildTimestamp() {
+    def date = new Date()
+    def formattedDate = date.format('yyyyMMddHHmmss')
+    return formattedDate
+}

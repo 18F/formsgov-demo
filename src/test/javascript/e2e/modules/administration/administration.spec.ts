@@ -1,4 +1,5 @@
-import { element, by, browser } from 'protractor';
+/* tslint:disable no-unused-expression */
+import { browser, by, element } from 'protractor';
 
 import NavBarPage from '../../page-objects/navbar-page';
 import SignInPage from '../../page-objects/signin-page';
@@ -9,20 +10,31 @@ const expect = chai.expect;
 describe('Administration', () => {
   let navBarPage: NavBarPage;
   let signInPage: SignInPage;
-  const username = process.env.E2E_USERNAME || 'admin';
-  const password = process.env.E2E_PASSWORD || 'admin';
 
   before(async () => {
     await browser.get('/');
     navBarPage = new NavBarPage();
     signInPage = await navBarPage.getSignInPage();
-    await signInPage.loginWithOAuth(username, password);
+    await signInPage.waitUntilDisplayed();
+
+    await signInPage.username.sendKeys('admin');
+    await signInPage.password.sendKeys('admin');
+    await signInPage.loginButton.click();
+    await signInPage.waitUntilHidden();
+
     await waitUntilDisplayed(navBarPage.adminMenu);
+  });
+
+  it('should load user management', async () => {
+    await navBarPage.clickOnAdminMenuItem('user-management');
+    const heading = element(by.id('user-management-page-heading'));
+    await waitUntilDisplayed(heading);
+    // Title should be equal to 'Users'
+    expect(await heading.isPresent()).to.be.true;
   });
 
   it('should load metrics', async () => {
     await navBarPage.clickOnAdminMenuItem('metrics');
-    await waitUntilDisplayed(element(by.id('metrics-page-heading')));
     expect(await element(by.id('metrics-page-heading')).getText()).to.eq('Application Metrics');
   });
 

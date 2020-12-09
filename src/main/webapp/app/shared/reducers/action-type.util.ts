@@ -1,17 +1,17 @@
 /**
- * Appends REQUEST async action type
+ * Appends REQUEST asyc action type
  */
 
 export const REQUEST = actionType => `${actionType}_PENDING`;
 
 /**
- * Appends SUCCESS async action type
+ * Appends SUCCESS asyc action type
  */
 
 export const SUCCESS = actionType => `${actionType}_FULFILLED`;
 
 /**
- * Appends FAILURE async action type
+ * Appends FAILURE asyc action type
  */
 
 export const FAILURE = actionType => `${actionType}_REJECTED`;

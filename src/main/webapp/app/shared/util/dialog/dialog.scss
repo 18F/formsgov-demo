@@ -1,0 +1,79 @@
+.body-text {
+  color: black;
+  font-size: 1.2rem;
+  font-family: Source Sans Pro;
+  line-height: 1.6;
+}
+.body-text-s {
+  color: black;
+  font-size: 1rem;
+  font-family: Source Sans Pro;
+  line-height: 1.6;
+}
+.body-text-l {
+  color: black;
+  font-size: 1.3rem;
+  font-family: Source Sans Pro;
+  line-height: 1.6;
+}
+.table-bordered {
+  border: 1px solid black;
+}
+
+.alert-dialog th {
+  font-size: 1rem;
+  color: black;
+  font-weight: 200;
+  border: 1px solid black;
+}
+.alert-dialog td {
+  color: black;
+  font-size: 1.15rem;
+  font-family: Source Sans Pro;
+  line-height: 1.6;
+  font-weight: bolder;
+  border: 1px solid black;
+}
+.alert-dialog thead {
+  border: 1px solid black;
+}
+
+#dialogClose {
+  .ds-c-button:hover {
+    background-color: transparent;
+    text-decoration: underline;
+  }
+}
+.ds-c-dialog-wrap {
+  background-color: rgba(0, 0, 0, 0.5);
+  bottom: 0;
+  left: 0;
+  overflow-x: hidden;
+  overflow-y: auto;
+  padding: 48px 0;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 100%;
+  z-index: 999999;
+}
+.ds-c-dialog__close {
+  display: none;
+}
+
+.modal-dialog-centered {
+  // Ensure `modal-dialog-centered` extends the full height of the view (IE10/11)
+  &::before {
+    display: block; // IE10
+    height: calc(100vh - (0.5rem * 2));
+    content: '';
+  }
+}
+
+@media (min-width: 576px) {
+  .modal-dialog-centered {
+    &::before {
+      height: calc(100vh - (1.75rem * 2));
+    }
+  }
+}
