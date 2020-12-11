@@ -89,3 +89,4 @@ jhipster:
 logging:
     file:
         name: build/formservice.log
+security.saml2.metadata-url: https://idp.int.identitysandbox.gov/api/saml/metadata2020

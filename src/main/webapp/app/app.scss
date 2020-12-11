@@ -3,7 +3,7 @@
 // Import Bootstrap source files from node_modules
 @import 'node_modules/bootstrap/scss/bootstrap';
 body {
-  background: #fafafa;
+  background: #f1f1f1;
   margin: 0;
 }
 
@@ -45,6 +45,9 @@ a {
   margin: 5px;
   z-index: 1000;
   padding: 5px 25px 50px 25px !important;
+}
+.container {
+  background-color: #f1f1f1;
 }
 
 /* ==========================================================================
@@ -341,9 +344,11 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   flex-direction: column;
   min-width: 0;
   word-wrap: break-word;
-  background-color: #dee1e2;
+  background-color: #f2f5f7;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   padding: 20px;
+  width: 81%;
+  margin: 0 auto;
 }

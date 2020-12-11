@@ -11,7 +11,7 @@ const errorMessage = <div>Internal server error occured !.</div>;
 axios.defaults.timeout = TIMEOUT;
 axios.defaults.headers = { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' };
 if (process.env.NODE_ENV === 'development') {
-  axios.defaults.baseURL = 'http://localhost:8181/faas/';
+  axios.defaults.baseURL = 'https://localhost:8181/faas/';
 }
 axios.interceptors.response.use(null, error => {
   console.error('Interceptors Error ', error);

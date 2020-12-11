@@ -22,7 +22,7 @@ export const App = props => {
   const paddingTop = '0px';
   return (
     <Router basename={baseHref}>
-      <div className="app-container" style={{ paddingTop }}>
+      <div style={{ paddingTop }}>
         <ToastContainer
           position={toast.POSITION.TOP_LEFT as ToastPosition}
           className="toastify-container"
