@@ -30,7 +30,7 @@ export const hasAnyAuthority = (authorities: string[], hasAnyAuthorities: string
   return false;
 };
 
-const mapStateToProps = ({  }: IRootState, { hasAnyAuthorities = [] }: IOwnProps) => ({});
+const mapStateToProps = (IRootState, { hasAnyAuthorities = [] }: IOwnProps) => ({});
 
 type StateProps = ReturnType<typeof mapStateToProps>;
 
