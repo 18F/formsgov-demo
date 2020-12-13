@@ -3,7 +3,7 @@ import './app.scss';
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { Card } from 'reactstrap';
-import { BrowserRouter as Router } from 'react-router-dom';
+import { HashRouter as Router } from 'react-router-dom';
 import { ToastContainer, toast, ToastPosition } from 'react-toastify';
 import { IRootState } from '../app/shared/reducers';
 import Header from '../app/shared/layout/header/header';

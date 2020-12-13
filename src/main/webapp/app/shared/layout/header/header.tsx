@@ -72,7 +72,7 @@ const Header = props => {
         <div className="usa-nav-container">
           <div className="usa-navbar">
             <div className="usa-logo" id="basic-logo">
-              <Link to="/faas/ui">
+              <Link to="/">
                 <img src={irsLogo} role="img" alt="Form Service" />
               </Link>
             </div>

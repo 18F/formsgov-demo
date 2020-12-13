@@ -11,11 +11,11 @@ import SignUnsuccessful from './modules/forms/sign-unsuccessful';
 const Routes = () => (
   <div className="view-routes">
     <Switch>
-      <ErrorBoundaryRoute path="/faas/ui/sign-unsuccessful" exact component={SignUnsuccessful} />
-      <ErrorBoundaryRoute path="/faas/ui/sign-success" exact component={SignSuccess} />
+      <ErrorBoundaryRoute path="/sign-unsuccessful" exact component={SignUnsuccessful} />
+      <ErrorBoundaryRoute path="/sign-success" exact component={SignSuccess} />
       <ErrorBoundaryRoute path="/sign-request" exact component={SignRequest} />
-      <ErrorBoundaryRoute path="/faas/ui/fheo" exact component={Fheo} />
-      <ErrorBoundaryRoute path="/faas/ui" exact component={Home} />
+      <ErrorBoundaryRoute path="/fheo" exact component={Fheo} />
+      <ErrorBoundaryRoute path="/" exact component={Home} />
       <ErrorBoundaryRoute component={PageNotFound} />
     </Switch>
   </div>

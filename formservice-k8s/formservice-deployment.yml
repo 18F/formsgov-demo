@@ -14,8 +14,12 @@ spec:
       containers:
         - name: app
           image: 306881650362.dkr.ecr.us-gov-west-1.amazonaws.com/faas-sandb/microservice:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 8181
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: dev
 # # apiVersion: apps/v1
 # # kind: Deployment
 # # metadata:

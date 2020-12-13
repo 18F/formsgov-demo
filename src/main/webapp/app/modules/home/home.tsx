@@ -9,6 +9,7 @@ import SignRequest from '../forms/sign-request';
 import Iframe from 'react-iframe';
 import LoadingOverlay from 'react-loading-overlay';
 import { FadeLoader } from 'react-spinners';
+import { Link } from 'react-router-dom';
 Formio.use(uswds);
 export const Home = prop => {
   const [jwtToken, setJwtToken] = useState(0);
@@ -86,7 +87,8 @@ export const Home = prop => {
           <Form src="https://dev-portal.fs.gsa.gov/dev/f8821form" onSubmitDone={handleOnSubmitDone} onSubmit={handleOnSubmit} />
         </div>
       ) : (
-        <object type="text/html" data={embedUrl} width="1200px" height="800px" style={{ overflow: 'auto' }} />
+        (window.location.href = embedUrl)
+        // <object type="text/html" data={embedUrl} width="1200px" height="800px" style={{ overflow: 'auto' }} />
       )}
     </LoadingOverlay>
     // <div id="main-content" className="app-container" role="main">

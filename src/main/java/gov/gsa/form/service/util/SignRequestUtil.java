@@ -73,8 +73,8 @@ public class SignRequestUtil {
     public static String formatSignRequestJson(URL url) throws IOException {
 
         String defaultQuickCreateJson = "{\"from_email\": \"from@example.com\",\"redirect_url\": \"http://documentsigned.com\",\"redirect_url_declined\": \"http://documentnotsigned.com\",\"signers\": [{\"email\": \"wube@gsa.gov\",\"first_name\": \"Wube\",\"last_name\": \"Kifle\",\"embed_url_user_id\" : \"wube@gsa.gov\"}],\"file_from_url\": \"\",\"events_callback_url\": \"\",\"auto_delete_days\": 5,\"auto_expire_days\": 5}";
-        String urlToRedirectOnceSigned = "https://localhost:8181/faas/ui/sign-success";
-        String urlToRedirectIfNotSigned = "https://localhost:8181/faas/ui/sign-unsuccessful";
+        String urlToRedirectOnceSigned = "https://localhost:8181/faas/ui#/sign-success";
+        String urlToRedirectIfNotSigned = "https://localhost:8181/faas/ui#/sign-unsuccessful";
         String signRequestCallbackUrl = "https://localhost:8181/faas";
 
         // read json into JsonNode using Jackson ObjectMapper
