@@ -15,6 +15,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
+import org.springframework.security.web.firewall.HttpFirewall;
+import org.springframework.security.web.firewall.StrictHttpFirewall;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 import javax.inject.Inject;
 
@@ -65,6 +67,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
+            .headers().frameOptions().sameOrigin()
+            .and()
             .authorizeRequests()
             .antMatchers("/faas/saml*").permitAll()
             .anyRequest().authenticated()
@@ -87,4 +91,5 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .identityProvider()
             .metadataFilePath(this.metadataUrl);
     }
+
 }

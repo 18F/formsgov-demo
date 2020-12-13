@@ -169,7 +169,6 @@ dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
     compile "org.springframework.boot:spring-boot-starter-actuator"
     compile "org.springframework.boot:spring-boot-starter-aop"
-    compile "org.springframework.boot:spring-boot-starter-amqp"
 
     // log4j needed to create embedded elasticsearch instance
     runtime "org.apache.logging.log4j:log4j-api:2.7"

@@ -5,6 +5,7 @@ import gov.gsa.form.service.dto.Data;
 import gov.gsa.form.service.dto.Login;
 import gov.gsa.form.service.util.HttpClient;
 import gov.gsa.form.service.util.ObjectMapperUtil;
+import gov.gsa.form.service.util.SignRequestUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpHeaders;
@@ -14,6 +15,8 @@ import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 
 import javax.inject.Inject;
+import java.io.IOException;
+import java.net.URL;
 
 
 @RestController
@@ -21,12 +24,17 @@ import javax.inject.Inject;
 public class FormIoResource {
     private final Logger log = LoggerFactory.getLogger(FormIoResource.class);
 
-    private String reqBody = "{\"data\" : {\"email\":\"service@gsa.gov\"," +
-        "\"password\":\"vBEJbMK6DAydFjBitmLbB4ndBhHZpm\"" + "}"+ "}";
+    private String reqBody = "{\"data\":{\"email\":\"service@gsa.gov\", \"password\":\"vBEJbMK6DAydFjBitmLbB4ndBhHZpm\"}}";
+
+   // String defaultQuickCreateJson = "{\"from_email\": \"from@example.com\",\"redirect_url\": \"http://documentsigned.com\",\"redirect_url_declined\": \"http://documentnotsigned.com\",\"signers\": [{\"email\": \"user@example.com\",\"first_name\": \"first\",\"last_name\": \"last\",\"embed_url_user_id\" : \"formservice@gsa.gov\"}],\"file_from_url\": \"\",\"events_callback_url\": \"\",\"auto_delete_days\": 5,\"auto_expire_days\": 5}";
     @Inject
     private HttpClient HttpClient;
 
 
+    @GetMapping (value = "/sign")
+    public String signRequest(@RequestParam(name = "pdfUrl")  String pdfUrl) throws IOException {
+        return SignRequestUtil.postSignRequestQuickCreate(pdfUrl);
+    }
     @GetMapping(value = "/login")
     public void login() throws JsonProcessingException {
         log.info("FormIoResource ::  login #");

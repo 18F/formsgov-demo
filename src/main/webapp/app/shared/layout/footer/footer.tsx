@@ -12,9 +12,11 @@ const Footer = props => (
       </div> */}
       <div className="usa-footer__secondary-section" style={{ background: 'rgb(181 195 208 / 65%)' }}>
         <div className="grid-container">
-          <div className="usa-footer__logo grid-row grid-gap-2">
+          <div className="usa-footer__logo grid-row grid-gap-1">
             <div className="grid-col-auto">
-              <h3 className="usa-footer__logo-heading">Powered By</h3>
+              <h3 className="usa-footer__logo-heading" style={{ marginLeft: '-9.9rem' }}>
+                Powered By
+              </h3>
             </div>
             <div className="grid-col-auto" style={{ marginRight: '18rem !important' }}>
               <img src={faasLogo} role="img" alt="" />

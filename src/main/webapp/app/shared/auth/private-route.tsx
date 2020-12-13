@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Route, RouteProps } from 'react-router-dom';
-import { IRootState } from '../../../app/shared/reducers';
 import ErrorBoundary from '../../../app/shared/error/error-boundary';
 
 interface IOwnProps extends RouteProps {

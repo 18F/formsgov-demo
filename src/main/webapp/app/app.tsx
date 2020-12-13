@@ -21,7 +21,7 @@ const baseHref = document
 export const App = props => {
   const paddingTop = '0px';
   return (
-    <Router basename={baseHref}>
+    <Router>
       <div style={{ paddingTop }}>
         <ToastContainer
           position={toast.POSITION.TOP_LEFT as ToastPosition}
