@@ -1,27 +1,34 @@
 package gov.gsa.form.service.config;
 
+import gov.gsa.form.service.security.UserDetails;
+
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Import;
+
 import org.springframework.http.HttpMethod;
-import org.springframework.http.HttpStatus;
+
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
-import org.springframework.security.web.firewall.HttpFirewall;
-import org.springframework.security.web.firewall.StrictHttpFirewall;
+
+
+import org.springframework.security.saml.websso.*;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 import javax.inject.Inject;
 
-import static org.springframework.security.extensions.saml2.config.SAMLConfigurer.saml;
 
+
+import java.util.*;
+
+import static gov.gsa.form.service.security.CustomSAMLConfigurer.saml;
 
 
 @Configuration
@@ -76,20 +83,18 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .apply(saml())
             .serviceProvider()
             .entityId("urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:formservice-poc-irs")
-            // .entityId("https://ec2-96-127-124-187.us-gov-west-1.compute.amazonaws.com/faas")
             .keyStore()
             .storeFilePath(this.keyStoreFilePath)
             .password(this.password)
             .keyname(this.keyAlias)
-            //.keyname("feddevsso")
             .keyPassword(this.password)
             .and()
             .protocol("https")
             .hostname(String.format("%s:%s", "localhost", this.port))
             .basePath("/faas")
             .and()
+            .userDetailsService(new UserDetails())
             .identityProvider()
             .metadataFilePath(this.metadataUrl);
     }
-
 }

@@ -16,8 +16,10 @@ export const Home = prop => {
   const [submissionId, setSubmissionId] = useState(0);
   const [embedUrl, setEmbedUrl] = useState('');
   const [loader, setLoader] = useState(false);
+  const [user, setUser] = useState({});
   useEffect(() => {
     login();
+    getUser();
   }, []);
   const xAllow = `GET:/project/5f6a32fb7974387303dc6859/form/5fd14dd2ba8cc517f0ec74e4/submission/${submissionId}/download`;
   const requestData = {
@@ -44,6 +46,12 @@ export const Home = prop => {
       console.log(response.statusText);
       console.log(response.headers['x-jwt-token']);
     });
+  };
+
+  const getUser = async () => {
+    const { data: response } = await http.get('api/user');
+    console.log(response);
+    setUser(response);
   };
 
   const getSignedRequest = async key => {
@@ -76,6 +84,12 @@ export const Home = prop => {
         getSignedRequest(resp.data['key']);
       });
   };
+  const submissionData = {
+    data: {
+      taxpayerFirstName: user['firstName'],
+      taxpayerLastName: user['lastName']
+    }
+  };
   return (
     <LoadingOverlay
       active={loader}
@@ -84,7 +98,11 @@ export const Home = prop => {
     >
       {embedUrl === '' ? (
         <div>
-          <Form src="https://dev-portal.fs.gsa.gov/dev/f8821form" onSubmitDone={handleOnSubmitDone} onSubmit={handleOnSubmit} />
+          <Form src="https://dev-portal.fs.gsa.gov/dev/f8821form"
+            onSubmitDone={handleOnSubmitDone}
+            onSubmit={handleOnSubmit}
+            submission={submissionData}
+          />
         </div>
       ) : (
         (window.location.href = embedUrl)
