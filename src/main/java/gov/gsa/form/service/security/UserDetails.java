@@ -1,12 +1,9 @@
 package gov.gsa.form.service.security;
 
-import gov.gsa.form.service.config.Constants;
 import gov.gsa.form.service.dto.User;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.security.saml.SAMLCredential;
 import org.springframework.security.saml.userdetails.SAMLUserDetailsService;
-import org.opensaml.saml2.core.Attribute;
-import org.opensaml.xml.XMLObject;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -18,7 +15,7 @@ public class UserDetails  implements SAMLUserDetailsService {
 
     @Override
     public User loadUserBySAML(SAMLCredential credential)  {
-         HttpServletRequest request =
+        HttpServletRequest request =
             ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest();
         String firstName = credential.getAttributeAsString("first_name");
@@ -31,20 +28,20 @@ public class UserDetails  implements SAMLUserDetailsService {
         String phone = credential.getAttributeAsString("phone");
         String ssn = credential.getAttributeAsString("ssn");
 
-        User user =  new User();
-        if (StringUtils.isNotBlank(firstName) ) {
+        User user = new User();
+        if (StringUtils.isNotBlank(firstName)) {
             user.setFirstName(firstName);
         }
         if (StringUtils.isNotBlank(lastName)) {
             user.setLastName(lastName);
         }
-        if (StringUtils.isNotBlank(email) ) {
+        if (StringUtils.isNotBlank(email)) {
             user.setEmail(email);
         }
         if (StringUtils.isNotBlank(address1)) {
             user.setAddress1(address1);
         }
-        if (StringUtils.isNotBlank(city) ) {
+        if (StringUtils.isNotBlank(city)) {
             user.setCity(city);
         }
         if (StringUtils.isNotBlank(state)) {
