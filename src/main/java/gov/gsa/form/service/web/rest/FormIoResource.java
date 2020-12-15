@@ -25,15 +25,16 @@ public class FormIoResource {
     private final Logger log = LoggerFactory.getLogger(FormIoResource.class);
 
     private String reqBody = "{\"data\":{\"email\":\"service@gsa.gov\", \"password\":\"vBEJbMK6DAydFjBitmLbB4ndBhHZpm\"}}";
+    @Inject
+    private SignRequestUtil signRequest;
 
-   // String defaultQuickCreateJson = "{\"from_email\": \"from@example.com\",\"redirect_url\": \"http://documentsigned.com\",\"redirect_url_declined\": \"http://documentnotsigned.com\",\"signers\": [{\"email\": \"user@example.com\",\"first_name\": \"first\",\"last_name\": \"last\",\"embed_url_user_id\" : \"formservice@gsa.gov\"}],\"file_from_url\": \"\",\"events_callback_url\": \"\",\"auto_delete_days\": 5,\"auto_expire_days\": 5}";
     @Inject
     private HttpClient HttpClient;
 
 
     @GetMapping (value = "/sign")
     public String signRequest(@RequestParam(name = "pdfUrl")  String pdfUrl) throws IOException {
-        return SignRequestUtil.postSignRequestQuickCreate(pdfUrl);
+        return signRequest.postSignRequestQuickCreate(pdfUrl);
     }
     @GetMapping(value = "/login")
     public void login() throws JsonProcessingException {

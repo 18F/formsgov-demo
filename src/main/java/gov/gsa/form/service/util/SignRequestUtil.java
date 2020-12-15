@@ -13,13 +13,19 @@ import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
 
 import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
+import gov.gsa.form.service.dto.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 @Named
 public class SignRequestUtil {
@@ -29,15 +35,16 @@ public class SignRequestUtil {
     private static ObjectMapper mapper = new ObjectMapper();;
     private String targetEnvAuthToken = null;
 
+    @Value("${security.saml2.server}")
+    private String host;
 
-//    public SignRequestUtil(String targetEnvAuthToken, String targetEnvApiPath) {
-//        this.signRequestClient = HttpClient.newBuilder().proxy(ProxySelector.getDefault()).build();
-//        this.mapper = new ObjectMapper();
-//        this.targetEnvAuthToken = targetEnvAuthToken;
-//        this.targetEnvApiPath = targetEnvApiPath;
-//    }
+    @Value("${security.saml2.port}")
+    private String port;
 
-    public static String postSignRequestQuickCreate(String pdfUrl) {
+
+
+
+    public  String postSignRequestQuickCreate(String pdfUrl) {
 //        String formioPdfDownloadUrl = "https://dev-portal.fs.gsa.gov/project/" + projectId + "/form/" + formId
 //                + "/submission/" + submissionId + "/download?token=" + downloadTokenKey;
         String targetEnvApiPath = "https://formservice.sr-sandb.appsquared.io/api/v1";
@@ -62,7 +69,7 @@ public class SignRequestUtil {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-
+        log.info(quickCreateResponseNode.toPrettyString());
         return quickCreateResponseNode.toPrettyString();
     }
 
@@ -70,29 +77,55 @@ public class SignRequestUtil {
     // a builder,
     // since there are a lot of things that need to be provided to create the json.
     // They are hardcoded for now.
-    public static String formatSignRequestJson(URL url) throws IOException {
+    public  String formatSignRequestJson(URL url) throws IOException {
+        String redirectUrl =  "https://"+ this.host + ":" + this.port + "/faas";
+        HttpServletRequest request =
+            ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
+                .getRequest();
+       User user=  (User) request.getSession().getAttribute("user");
+        String urlToRedirectOnceSigned = redirectUrl + "/ui#/sign-success";
+        String urlToRedirectIfNotSigned = redirectUrl + "/ui#/sign-unsuccessful";
+        String signRequestCallbackUrl = redirectUrl;
+        String email = user.getEmail();
+        String signerFirstName = user.getFirstName();
+        String signerLastName = user.getLastName();
+        String defaultQuickCreateJson = "{\"from_email\": \"from@example.com\",\"redirect_url\": \"http://documentsigned.com\",\"redirect_url_declined\": \"http://documentnotsigned.com\",\"signers\": [],\"file_from_url\": \"\",\"events_callback_url\": \"\",\"auto_delete_days\": 5,\"auto_expire_days\": 5}";
+        String signers = "{\"email\": \"from@example.com\",\"first_name\": \"Wube\",\"last_name\": \"Kifle\",\"embed_url_user_id\" : \"wube@gsa.gov\"}";
 
-        String defaultQuickCreateJson = "{\"from_email\": \"from@example.com\",\"redirect_url\": \"http://documentsigned.com\",\"redirect_url_declined\": \"http://documentnotsigned.com\",\"signers\": [{\"email\": \"wube@gsa.gov\",\"first_name\": \"Wube\",\"last_name\": \"Kifle\",\"embed_url_user_id\" : \"wube@gsa.gov\"}],\"file_from_url\": \"\",\"events_callback_url\": \"\",\"auto_delete_days\": 5,\"auto_expire_days\": 5}";
-        String urlToRedirectOnceSigned = "https://localhost:8181/faas/ui#/sign-success";
-        String urlToRedirectIfNotSigned = "https://localhost:8181/faas/ui#/sign-unsuccessful";
-        String signRequestCallbackUrl = "https://localhost:8181/faas";
+        ObjectNode signersJson = (ObjectNode) mapper.readTree(signers);
 
-        // read json into JsonNode using Jackson ObjectMapper
+        signersJson.put("email", email);
+        signersJson.put("first_name", signerFirstName);
+        signersJson.put("last_name", signerLastName);
+        signersJson.put("embed_url_user_id", email);
+
+
+
+            // read json into JsonNode using Jackson ObjectMapper
         ObjectNode signRequestJsonConfiguration = (ObjectNode) mapper.readTree(defaultQuickCreateJson);
+
+        ArrayNode arrayNode = signRequestJsonConfiguration.putArray("signers");
+        arrayNode.add(signersJson);
 
         byte[] encoded = encodePdfToByte(url);
 
         //modify certain Json fields
         signRequestJsonConfiguration.put("redirect_url", urlToRedirectOnceSigned);
         signRequestJsonConfiguration.put("redirect_url_declined", urlToRedirectIfNotSigned);
+
+        signRequestJsonConfiguration.put("from_email", email);
+        signRequestJsonConfiguration.put("from_email_name", signerFirstName);
+
+      //  signRequestJsonConfiguration.put("signers", arrayNode);
+
         signRequestJsonConfiguration.put("file_from_content", encoded);
         signRequestJsonConfiguration.put("file_from_content_name", "F8821.pdf"); //title at the top
         signRequestJsonConfiguration.put("events_callback_url", signRequestCallbackUrl);
-
+        log.info(signRequestJsonConfiguration.toPrettyString());
         return signRequestJsonConfiguration.toPrettyString();
     }
 
-    private  static byte[] encodePdfToByte(URL url) throws IOException {
+    private   byte[] encodePdfToByte(URL url) throws IOException {
 
         try (InputStream is = url.openStream();
             ByteArrayOutputStream baos = new ByteArrayOutputStream()) {

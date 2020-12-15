@@ -1,15 +1,16 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: formservice
+  name: formservice02
 spec:
+  replicas: 1
   selector:
     matchLabels:
-      name: formservice
+      name: formservice02
   template:
     metadata:
       labels:
-        name: formservice
+        name: formservice02
     spec:
       containers:
         - name: app
@@ -20,6 +21,12 @@ spec:
           env:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
+            - name: HOST
+              value: agency01-ms-sandb-02.appsquared.io
+            - name: PORT
+              value: '443'
+            - name: ENTITYID
+              value: urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs.gov:irs-form 
 # # apiVersion: apps/v1
 # # kind: Deployment
 # # metadata:

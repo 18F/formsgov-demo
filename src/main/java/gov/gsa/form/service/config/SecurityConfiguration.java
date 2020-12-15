@@ -18,16 +18,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-
-
-import org.springframework.security.saml.websso.*;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 import javax.inject.Inject;
-
-
-
-import java.util.*;
-
 import static gov.gsa.form.service.security.CustomSAMLConfigurer.saml;
 
 
@@ -46,11 +38,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${server.ssl.key-store-password}")
     private String password;
 
-    @Value("${server.port}")
+    @Value("${security.saml2.port}")
     private String port;
 
     @Value("${server.ssl.key-store}")
     private String keyStoreFilePath;
+
+    @Value("${security.saml2.server}")
+    private String host;
+
+    @Value("${security.saml2.entityId}")
+    private String entityId;
 
     @Inject
     CustomAuthenticationProvider customAuthProvider;
@@ -82,7 +80,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .and()
             .apply(saml())
             .serviceProvider()
-            .entityId("urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:formservice-poc-irs")
+            .entityId(this.entityId)
             .keyStore()
             .storeFilePath(this.keyStoreFilePath)
             .password(this.password)
@@ -90,7 +88,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .keyPassword(this.password)
             .and()
             .protocol("https")
-            .hostname(String.format("%s:%s", "localhost", this.port))
+            .hostname(String.format("%s:%s", this.host, this.port))
             .basePath("/faas")
             .and()
             .userDetailsService(new UserDetails())

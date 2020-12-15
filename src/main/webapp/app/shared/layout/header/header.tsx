@@ -76,7 +76,7 @@ const Header = props => {
                 <img src={irsLogo} role="img" alt="Form Service" />
               </Link>
             </div>
-            <button className="usa-menu-btn ml-2">Menu</button>
+            {/* <button className="usa-menu-btn ml-2">Menu</button> */}
           </div>
           {/* <nav aria-label="Primary navigation" className="usa-nav">
             <button className="usa-nav__close">

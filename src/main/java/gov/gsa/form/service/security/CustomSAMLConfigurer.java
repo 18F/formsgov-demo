@@ -208,8 +208,9 @@ public class CustomSAMLConfigurer extends SecurityConfigurerAdapter<DefaultSecur
         WebSSOProfileOptions webSSOProfileOptions = new WebSSOProfileOptions();
         webSSOProfileOptions.setIncludeScoping(true);
         List<String> authnContext =  new ArrayList<>();
+        authnContext.add("http://idmanagement.gov/ns/assurance/aal/2");
         authnContext.add("http://idmanagement.gov/ns/assurance/ial/2");
-        authnContext.add("http://idmanagement.gov/ns/requested_attributes?ReqAttr=email,phone,first_name,last_name");
+        authnContext.add("http://idmanagement.gov/ns/requested_attributes?ReqAttr=email,phone,first_name,last_name,address1,address2,city,state,zipcode,phone,ssn");
         webSSOProfileOptions.setAuthnContexts(authnContext);
         return webSSOProfileOptions;
     }

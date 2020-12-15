@@ -62,9 +62,9 @@ export const Home = prop => {
         pdfUrl
       }
     });
-    const embed_url = response.signers[1].embed_url;
     console.log('response ***** ' + JSON.stringify(response));
-    console.log('embed url ***** ' + response.signers[1].embed_url);
+    const embed_url = response.signers[0].embed_url;
+    console.log('embed url ***** ' + response.signers[0].embed_url);
     setEmbedUrl(embed_url);
     setLoader(false);
   };
@@ -84,10 +84,18 @@ export const Home = prop => {
         getSignedRequest(resp.data['key']);
       });
   };
+  const phone = user['phone'];
+  const formattedPhone = phone !== undefined ? phone.replace(/\D+/g, '').replace(/^(\d{3})(\d{3})(\d{4}).*/, '($1) $2-$3') : '';
   const submissionData = {
     data: {
       taxpayerFirstName: user['firstName'],
-      taxpayerLastName: user['lastName']
+      taxpayerLastName: user['lastName'],
+      taxpayerHomeAddress: user['address1'],
+      taxpayerCity: user['city'],
+      taxpayerZip: user['zipcode'],
+      taxpayerState: user['state'],
+      taxpayerDaytimePhoneNumber: formattedPhone,
+      taxpayerIdentificationNumber: user['ssn']
     }
   };
   return (
