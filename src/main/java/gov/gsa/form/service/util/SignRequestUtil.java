@@ -1,5 +1,18 @@
 package gov.gsa.form.service.util;
 
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.node.ArrayNode;
+import com.fasterxml.jackson.databind.node.ObjectNode;
+import gov.gsa.form.service.dto.User;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
+
+import javax.inject.Named;
+import javax.servlet.http.HttpServletRequest;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -9,23 +22,8 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
-import java.net.http.HttpResponse;
 import java.net.http.HttpRequest.BodyPublishers;
-
-import javax.inject.Named;
-import javax.servlet.http.HttpServletRequest;
-
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.databind.node.ArrayNode;
-import com.fasterxml.jackson.databind.node.ObjectNode;
-
-import gov.gsa.form.service.dto.User;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
+import java.net.http.HttpResponse;
 
 @Named
 public class SignRequestUtil {
@@ -78,14 +76,13 @@ public class SignRequestUtil {
     // since there are a lot of things that need to be provided to create the json.
     // They are hardcoded for now.
     public  String formatSignRequestJson(URL url) throws IOException {
-        String redirectUrl =  "https://"+ this.host + ":" + this.port + "/faas";
+        String redirectUrl = "https://" + this.host + ":" + this.port + "/faas";
         HttpServletRequest request =
             ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
                 .getRequest();
        User user=  (User) request.getSession().getAttribute("user");
         String urlToRedirectOnceSigned = redirectUrl + "/ui#/sign-success";
         String urlToRedirectIfNotSigned = redirectUrl + "/ui#/sign-unsuccessful";
-        String signRequestCallbackUrl = redirectUrl;
         String email = user.getEmail();
         String signerFirstName = user.getFirstName();
         String signerLastName = user.getLastName();
@@ -116,11 +113,10 @@ public class SignRequestUtil {
         signRequestJsonConfiguration.put("from_email", email);
         signRequestJsonConfiguration.put("from_email_name", signerFirstName);
 
-      //  signRequestJsonConfiguration.put("signers", arrayNode);
 
         signRequestJsonConfiguration.put("file_from_content", encoded);
         signRequestJsonConfiguration.put("file_from_content_name", "F8821.pdf"); //title at the top
-        signRequestJsonConfiguration.put("events_callback_url", signRequestCallbackUrl);
+        signRequestJsonConfiguration.put("events_callback_url", redirectUrl);
         log.info(signRequestJsonConfiguration.toPrettyString());
         return signRequestJsonConfiguration.toPrettyString();
     }
