@@ -9,3 +9,10 @@
   margin-top: 0.5rem;
   margin-right: 0;
 }
+@media (min-width: 64em){
+  .custom {
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-left: 9.5rem;
+}
+}

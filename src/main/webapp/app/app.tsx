@@ -1,8 +1,7 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'reactstrap';
 import { HashRouter as Router } from 'react-router-dom';
 import { ToastContainer, toast, ToastPosition } from 'react-toastify';
 import { IRootState } from '../app/shared/reducers';
@@ -18,26 +17,31 @@ const baseHref = document
   .getAttribute('href')
   .replace(/\/$/, '');
 
-export const App = props => {
-  const paddingTop = '0px';
+export const App = () => {
   return (
     <Router>
-      <div style={{ paddingTop }}>
+      <Fragment>
         <ToastContainer
           position={toast.POSITION.TOP_LEFT as ToastPosition}
           className="toastify-container"
           toastClassName="toastify-toast"
         />
-        <div className="container-fluid view-container" id="app-view-container">
-          <Header />
-          <Card>
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </Card>
-          <Footer />
-        </div>
-      </div>
+        <Header />
+        <main className="main-content" id="main-content" aria-label="Content">
+          <div>
+            <div className="grid-container">
+              <div className="grid-row">
+                <div className="grid-col-12 card">
+                  <ErrorBoundary>
+                    <AppRoutes />
+                  </ErrorBoundary>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </Fragment>
     </Router>
   );
 };

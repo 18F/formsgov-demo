@@ -3,8 +3,18 @@
 // Import Bootstrap source files from node_modules
 @import 'node_modules/bootstrap/scss/bootstrap';
 body {
-  background: #f1f1f1;
-  margin: 0;
+  background-color:#f1f1f1;
+  color: color("ink");
+  overflow-x: hidden;
+
+  display: block;
+}
+
+html {
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  font-family: Source Sans Pro Web, Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+  font-size: 100%;
 }
 
 a {
@@ -22,33 +32,33 @@ a {
   }
 }
 
-.app-container {
-  box-sizing: border-box;
-  .view-container {
-    width: 100%;
-    height: calc(100% - 40px);
-    overflow-y: auto;
-    overflow-x: auto;
-    padding: 0rem 4.5rem 0 4.5rem;
-    background-color: #f1f1f1;
-    //background-color: rgba(97, 93, 93, 0.144);
-    position: fixed;
-    z-index: 1000;
-  }
-}
-.fullscreen {
-  position: fixed;
-  top: 100px;
-  left: 0px;
-  width: 99% !important;
-  height: calc(100vh - 110px) !important;
-  margin: 5px;
-  z-index: 1000;
-  padding: 5px 25px 50px 25px !important;
-}
-.container {
-  background-color: #f1f1f1;
-}
+// .app-container {
+//   box-sizing: border-box;
+//   .view-container {
+//     width: 100%;
+//     height: calc(100% - 40px);
+//     overflow-y: auto;
+//     overflow-x: auto;
+//     padding: 0rem 4.5rem 0 4.5rem;
+//     background-color: #f1f1f1;
+//     //background-color: rgba(97, 93, 93, 0.144);
+//     position: fixed;
+//     z-index: 1000;
+//   }
+// }
+// .fullscreen {
+//   position: fixed;
+//   top: 100px;
+//   left: 0px;
+//   width: 99% !important;
+//   height: calc(100vh - 110px) !important;
+//   margin: 5px;
+//   z-index: 1000;
+//   padding: 5px 25px 50px 25px !important;
+// }
+// .container {
+//   background-color: #f1f1f1;
+// }
 
 /* ==========================================================================
 Browser Upgrade Prompt
@@ -339,16 +349,11 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
 }
 
 .card {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  min-width: 0;
-  word-wrap: break-word;
   background-color: #f2f5f7;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
   border-radius: 0.25rem;
   padding: 20px;
-  width: 78%;
-  margin: 0 auto;
+  margin-bottom: 30px;
+  margin-top: 10px;
 }
