@@ -4,19 +4,19 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import gov.gsa.form.service.dto.Data;
 import gov.gsa.form.service.dto.Login;
 import gov.gsa.form.service.util.HttpClient;
-import gov.gsa.form.service.util.ObjectMapperUtil;
-import gov.gsa.form.service.util.SignRequestUtil;
+import gov.gsa.form.service.util.SignRequestService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.reactive.function.client.ClientResponse;
 import reactor.core.publisher.Mono;
 
 import javax.inject.Inject;
 import java.io.IOException;
-import java.net.URL;
 
 
 @RestController
@@ -26,7 +26,7 @@ public class FormIoResource {
 
     private String reqBody = "{\"data\":{\"email\":\"service@gsa.gov\", \"password\":\"vBEJbMK6DAydFjBitmLbB4ndBhHZpm\"}}";
     @Inject
-    private SignRequestUtil signRequest;
+    private SignRequestService signRequest;
 
     @Inject
     private HttpClient HttpClient;

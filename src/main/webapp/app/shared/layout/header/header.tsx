@@ -1,6 +1,6 @@
 import './header.scss';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 // tslint:disable-next-line
 const close = require('../../../../content/images/close.png');
 // tslint:disable-next-line
@@ -69,171 +69,60 @@ const Header = () => {
       </div>
       <div className="usa-overlay" />
       <header className="usa-header usa-header--extended" role="banner">
-      <div className="usa-navbar">
+        <div className="usa-navbar">
           <div className="usa-logo" id="header-logo">
-          <Link to="/">
+            <Link to="/">
               <img src={irsLogo} role="img" alt="Form Service" style={{ marginLeft: '-5px' }} />
-              </Link>
-       </div>
-          {/* <button className="usa-menu-btn">Menu</button> */}
-    </div>
-        {/*
+            </Link>
+          </div>
+          <button className="usa-menu-btn">Menu</button>
+        </div>
         <nav role="navigation" className="usa-nav">
           <div className="usa-nav__inner">
-        <button className="usa-nav__close">
-        <img src={close} role="img" alt="close" />
-        </button>
-
-        <ul className="usa-nav__primary usa-accordion">
-
-          <li className="usa-nav__primary-item">
-
-                <a className=" usa-nav__link   usa-current" href="/">
-                  <span>Overview</span>
-              </a>
-
-              </li>
-
-              <li className="usa-nav__primary-item">
-
-                <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-2">
-                  <span>Lifecycle of a Launch</span>
-                </button>
-
-                <ul id="nav-2" className="usa-nav__submenu">
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/ato/">ATOs</a>
+            <button className="usa-nav__close">
+              <img src={close} role="img" alt="close" />
+            </button>
+            <div className="usa-nav__inner">
+              <div className="region region-primary-menu">
+                <ul className="usa-nav__primary usa-accordion">
+                  <li className="usa-nav__primary-item">
+                    <NavLink exact activeClassName="usa-current" to="/" className="usa-nav__link">
+                      Home
+                 </NavLink>
                   </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/ato/checklist/">Checklist</a>
+                  <li className="usa-nav__primary-item">
+                    <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-2">
+                      <span>Forms</span>
+                    </button>
+                    <ul id="nav-2" className="usa-nav__submenu">
+                      <li className="usa-nav__submenu-item">
+                        <Link to="/fheo">
+                          FHEO
+                  </Link>
+                      </li>
+                      <li className="usa-nav__submenu-item">
+                        <Link to="/">
+                          MTW
+                  </Link>
+                      </li>
+                    </ul>
                   </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/ato/types/">Types</a>
+                  <li className="usa-nav__primary-item">
+                    <a className=" usa-nav__link" href="/">
+                      <span>Dashboard</span>
+                    </a>
                   </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/ato/ssp/">System Security Plan</a>
-                  </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/ato/archer/">Archer</a>
-                  </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/ato/tips/">Tips</a>
+                  <li className="usa-nav__primary-item">
+                    <NavLink className="usa-nav__link" exact activeClassName="usa-current" to="/admin">
+                      <span>Admin</span>
+                    </NavLink>
                   </li>
                 </ul>
-
-              </li>
-
-              <li className="usa-nav__primary-item">
-
-                <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-3">
-                  <span>Security</span>
-                </button>
-
-                <ul id="nav-3" className="usa-nav__submenu">
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/security/">General Security Standards</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/security/scanning/">Scanning</a>
-                  </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/security/static-analysis/">Static Analysis</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/security/dynamic-scanning/">Dynamic Scanning</a>
-                  </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/security/frameworks/">Frameworks</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/security/mfa/">Multi-Factor Authentication</a>
-                  </li>
-                </ul>
-
-              </li>
-
-              <li className="usa-nav__primary-item">
-
-                <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-4">
-                  <span>Infrastructure</span>
-            </button>
-
-                <ul id="nav-4" className="usa-nav__submenu">
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/">Overview</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/sandbox/">Sandbox Accounts</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/aws/">Amazon Web Services</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/federalist/">Federalist</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/domains/">Domains</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/good-production-practices/">Good Production Practices</a>
-                  </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/certs/">HTTPS Certificates</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/monitoring/">Monitoring</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/pinning-dependencies/">Pinning Dependencies</a>
-                  </li>
-                <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/logging/">Logging</a>
-                </li>
-                <li className="usa-nav__submenu-item">
-                    <a href="/infrastructure/decommissioning/">Decommissioning</a>
-                </li>
-            </ul>
-          </li>
-
-          <li className="usa-nav__primary-item">
-                <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-5">
-                  <span>Laws</span>
-            </button>
-
-                <ul id="nav-5" className="usa-nav__submenu">
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/laws/">Overview</a>
-                  </li>
-
-                  <li className="usa-nav__submenu-item">
-                    <a href="/laws/508/">508 - Accessibility</a>
-                  </li>
-                  <li className="usa-nav__submenu-item">
-                    <a href="https://pra.digital.gov/">Paperwork Reduction Act (PRA)</a>
-                  </li>
-            </ul>
-          </li>
-          <li className="usa-nav__primary-item">
-                <a className=" usa-nav__link  " href="/privacy/">
-                  <span>Privacy</span>
-              </a>
-          </li>
-            </ul>
+              </div>
+            </div>
           </div>
-        </nav> */}
-  </header>
+        </nav>
+      </header>
     </div>
   );
 };

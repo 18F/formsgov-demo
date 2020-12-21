@@ -17,7 +17,6 @@ public class HttpClient {
         this.webClient = webClient;
     }
 
-
     public Mono<ClientResponse> postLoginRequest(String reqBody) {
         return webClient.post().uri(FORMIO_LOGIN_URL).body(Mono.just(reqBody), String.class).exchange();
     }

@@ -26,11 +26,12 @@ import java.net.http.HttpRequest.BodyPublishers;
 import java.net.http.HttpResponse;
 
 @Named
-public class SignRequestUtil {
+public class SignRequestService {
 
-    private final Logger log = LoggerFactory.getLogger(HttpClient.class);
+    private final Logger log = LoggerFactory.getLogger(SignRequestService.class);
 
-    private static ObjectMapper mapper = new ObjectMapper();;
+    private static ObjectMapper mapper = new ObjectMapper();
+    ;
     private String targetEnvAuthToken = null;
 
     @Value("${security.saml2.server}")

@@ -1,17 +1,15 @@
 import './home.scss';
 import React, { useState, useEffect } from 'react';
-import { Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
 import http from '../../shared/service/http-service';
 import { Form, submission } from 'react-formio';
 import uswds from '@formio/uswds';
 import { Formio } from 'formiojs';
 import SignRequest from '../forms/sign-request';
-import Iframe from 'react-iframe';
 import LoadingOverlay from 'react-loading-overlay';
 import { FadeLoader } from 'react-spinners';
 import { Link } from 'react-router-dom';
 Formio.use(uswds);
-export const Home = prop => {
+export const Home = () => {
   const [jwtToken, setJwtToken] = useState(0);
   const [submissionId, setSubmissionId] = useState(0);
   const [embedUrl, setEmbedUrl] = useState('');
@@ -106,7 +104,8 @@ export const Home = prop => {
     >
       {embedUrl === '' ? (
         <div>
-          <Form src="https://dev-portal.fs.gsa.gov/dev/irs8821"
+          <Form
+            src="https://dev-portal.fs.gsa.gov/dev/irs8821"
             onSubmitDone={handleOnSubmitDone}
             onSubmit={handleOnSubmit}
             submission={submissionData}
@@ -117,14 +116,6 @@ export const Home = prop => {
         // <object type="text/html" data={embedUrl} width="1200px" height="800px" style={{ overflow: 'auto' }} />
       )}
     </LoadingOverlay>
-    // <div id="main-content" className="app-container" role="main">
-    //   <Row>
-    //     <Col sm="12">
-    //       <h2>Form service</h2>
-    //       <p>Selecet the form under Forms menu to fill out a form and submit.</p>
-    //     </Col>
-    //   </Row>
-    // </div >
   );
 };
 export default Home;
