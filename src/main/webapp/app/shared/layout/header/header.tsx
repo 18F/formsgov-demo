@@ -18,17 +18,17 @@ const Header = () => {
     <div>
       <a className="usa-skipnav" href="#main-content">Skip to main content</a>
       <div className="usa-banner">
-        <div className="usa-accordion">
-          <header className="usa-banner__header" style={{ backgroundColor: 'rgb(181 195 208 / 65%)' }}>
+        <div className="usa-accordion" style={{ color: 'white', backgroundColor: '#171716' }}>
+          <header className="usa-banner__header">
             <div className="usa-banner__inner">
               <div className="grid-col-auto">
                 <img className="usa-banner__header-flag" src={usFlag} alt="U.S. flag" />
               </div>
-              <div className="grid-col-fill tablet:grid-col-auto">
-                <p className="usa-banner__header-text">An official website of the United States government</p>
-                <p className="usa-banner__header-action" aria-hidden="true">Here’s how you know</p>
+              <div className="grid-col-fill tablet:grid-col-auto" style={{ color: '#c6cace' }}>
+                <p className="usa-banner__header-text" >An official website of the United States government</p>
+                <p className="usa-banner__header-action" aria-hidden="true" style={{ color: '#c6cace' }}>Here’s how you know</p>
               </div>
-              <button className="usa-accordion__button usa-banner__button" aria-expanded="false" aria-controls="gov-banner">
+              <button className="usa-accordion__button usa-banner__button" style={{ color: '#c6cace' }} aria-expanded="false" aria-controls="gov-banner">
                 <span className="usa-banner__button-text">Here’s how you know</span>
               </button>
             </div>
@@ -58,6 +58,7 @@ const Header = () => {
                     <br />
                         A <strong>lock</strong> (
                             <span className="icon-lock" />
+                    <img className="lock" src={iconHttps} alt="A locked padlock" />
                             ) or <strong>https://</strong> means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites.
 
                         </p>

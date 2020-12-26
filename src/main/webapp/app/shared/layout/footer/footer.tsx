@@ -3,10 +3,10 @@ import React from 'react';
 // tslint:disable-next-line
 const gsaLogo = require('../../../../content/images/gsa-footer-logo.png');
 // tslint:disable-next-line
-const faasLogo = require('../../../../content/images/faas-logo.png');
+const faasLogo = require('../../../../content/images/faas-logo-white.png');
 const Footer = () => (
   <footer className="usa-footer">
-    <div className="usa-footer__secondary-section">
+    <div className="usa-footer__secondary-section" style={{ backgroundColor: '#1b1b1b', color: '#fff' }}>
       <div className="grid-container">
         <div className="grid-row grid-gap">
           <div className="usa-footer__logo grid-row mobile-lg:grid-col-6 mobile-lg:grid-gap-2">
