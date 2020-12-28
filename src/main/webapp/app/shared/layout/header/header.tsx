@@ -74,13 +74,14 @@ const Header = () => {
         <div className="usa-nav-container">
           <div className="usa-navbar desktop:maxw-card height-auto flex-align-right">
             <div className="logo">
-              <a className="site-logo media_link" href="/">
-                <img src={irsLogo} alt="IRS logo" /></a>
+              <Link to="/">
+                <img src={irsLogo} alt="IRS logo" />
+              </Link>
               <span className="usa-sr-only">Home</span>
             </div>
             <button className="usa-button--accent-cool usa-menu-btn">Menu</button>
           </div>
-          <nav aria-label="Primary navigation" className="usa-nav" role="navigation" >
+          <nav aria-label="Primary navigation" className="usa-nav" role="navigation">
             <button className="usa-nav__close">
               <img src={close} alt="close" />
             </button>
