@@ -86,9 +86,9 @@ const Header = () => {
             </button>
             <ul className="usa-nav__primary usa-accordion">
               <li className="usa-nav__primary-item">
-                <NavLink exact activeClassName="usa-current" to="/" className="usa-nav__link">
-                  Home
-                 </NavLink>
+                <NavLink exact activeClassName="usa-current" to="/">
+                  <span>Home</span>
+                </NavLink>
               </li>
               <li className="usa-nav__primary-item">
                 <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-2">
@@ -97,13 +97,13 @@ const Header = () => {
                 <ul id="nav-2" className="usa-nav__submenu">
                   <li className="usa-nav__submenu-item">
                     <Link to="/fheo">
-                      FHEO
-                  </Link>
+                      <span>FHEO</span>
+                    </Link>
                   </li>
                   <li className="usa-nav__submenu-item">
                     <Link to="/">
-                      MTW
-                  </Link>
+                      <span>MTW</span>
+                    </Link>
                   </li>
                 </ul>
               </li>
