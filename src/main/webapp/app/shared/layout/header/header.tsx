@@ -82,7 +82,7 @@ const Header = () => {
           </div>
           <nav aria-label="Primary navigation" className="usa-nav" role="navigation" >
             <button className="usa-nav__close">
-              <img src="/assets/img/close.svg" alt="close" />
+              <img src={close} alt="close" />
             </button>
             <ul className="usa-nav__primary usa-accordion">
               <li className="usa-nav__primary-item">
