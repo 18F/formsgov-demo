@@ -13,11 +13,12 @@ const iconDot = require('../../../../content/images/icon-dot-gov.svg');
 const iconHttps = require('../../../../content/images/icon-https.svg');
 // tslint:disable-next-line
 const irsLogo = require('../../../../content/images/irs-logo.png');
+
 const Header = () => {
   return (
     <div>
       <a className="usa-skipnav" href="#main-content">Skip to main content</a>
-      <div className="usa-banner">
+      <div className="usa-banner" aria-label="Official government website">
         <div className="usa-accordion" style={{ color: 'white', backgroundColor: '#171716' }}>
           <header className="usa-banner__header">
             <div className="usa-banner__inner">
@@ -69,60 +70,54 @@ const Header = () => {
         </div>
       </div>
       <div className="usa-overlay" />
-      <header className="usa-header usa-header--extended" role="banner">
-        <div className="usa-navbar">
-          <div className="usa-logo" id="header-logo">
-            <Link to="/">
-              <img src={irsLogo} role="img" alt="Form Service" style={{ marginLeft: '-5px' }} />
-            </Link>
+      <header className="usa-header usa-header--basic">
+        <div className="usa-nav-container">
+          <div className="usa-navbar desktop:maxw-card height-auto flex-align-right">
+            <div className="logo">
+              <a className="site-logo media_link" href="/">
+                <img src={irsLogo} alt="IRS logo" /></a>
+              <span className="usa-sr-only">Home</span>
+            </div>
+            <button className="usa-button--accent-cool usa-menu-btn">Menu</button>
           </div>
-          <button className="usa-menu-btn">Menu</button>
-        </div>
-        <nav role="navigation" className="usa-nav">
-          <div className="usa-nav__inner">
+          <nav aria-label="Primary navigation" className="usa-nav" role="navigation" >
             <button className="usa-nav__close">
-              <img src={close} role="img" alt="close" />
+              <img src="/assets/img/close.svg" alt="close" />
             </button>
-            <div className="usa-nav__inner">
-              <div className="region region-primary-menu">
-                <ul className="usa-nav__primary usa-accordion">
-                  <li className="usa-nav__primary-item">
-                    <NavLink exact activeClassName="usa-current" to="/" className="usa-nav__link">
-                      Home
+            <ul className="usa-nav__primary usa-accordion">
+              <li className="usa-nav__primary-item">
+                <NavLink exact activeClassName="usa-current" to="/" className="usa-nav__link">
+                  Home
                  </NavLink>
-                  </li>
-                  <li className="usa-nav__primary-item">
-                    <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-2">
-                      <span>Forms</span>
-                    </button>
-                    <ul id="nav-2" className="usa-nav__submenu">
-                      <li className="usa-nav__submenu-item">
-                        <Link to="/fheo">
-                          FHEO
+              </li>
+              <li className="usa-nav__primary-item">
+                <button className="usa-accordion__button usa-nav__link" aria-expanded="false" aria-controls="nav-2">
+                  <span>Forms</span>
+                </button>
+                <ul id="nav-2" className="usa-nav__submenu">
+                  <li className="usa-nav__submenu-item">
+                    <Link to="/fheo">
+                      FHEO
                   </Link>
-                      </li>
-                      <li className="usa-nav__submenu-item">
-                        <Link to="/">
-                          MTW
+                  </li>
+                  <li className="usa-nav__submenu-item">
+                    <Link to="/">
+                      MTW
                   </Link>
-                      </li>
-                    </ul>
-                  </li>
-                  <li className="usa-nav__primary-item">
-                    <a className=" usa-nav__link" href="/">
-                      <span>Dashboard</span>
-                    </a>
-                  </li>
-                  <li className="usa-nav__primary-item">
-                    <NavLink className="usa-nav__link" exact activeClassName="usa-current" to="/admin">
-                      <span>Admin</span>
-                    </NavLink>
                   </li>
                 </ul>
-              </div>
-            </div>
-          </div>
-        </nav>
+              </li>
+              <li className="usa-nav__primary-item">
+                <a href="/" ><span>Dashboard</span></a>
+              </li>
+              <li className="usa-nav__primary-item">
+                <NavLink className="usa-nav__link" exact activeClassName="usa-current" to="/admin">
+                  <span>Admin</span>
+                </NavLink>
+              </li>
+            </ul>
+          </nav>
+        </div>
       </header>
     </div>
   );

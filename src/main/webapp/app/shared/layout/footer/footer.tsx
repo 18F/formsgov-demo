@@ -14,7 +14,7 @@ const Footer = () => (
               <p className="usa-text-small">Powered by</p>
             </div>
             <div className="mobile-lg:grid-col-auto">
-              <img src={faasLogo} role="img" alt="" style={{ marginTop: '-15px' }} />
+              <img src={faasLogo} role="img" alt="" style={{ marginTop: '-20px' }} />
             </div>
           </div>
           <div className="usa-footer__contact-links mobile-lg:grid-col-6">
