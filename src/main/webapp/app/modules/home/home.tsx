@@ -4,10 +4,8 @@ import http from '../../shared/service/http-service';
 import { Form, submission } from 'react-formio';
 import uswds from '@formio/uswds';
 import { Formio } from 'formiojs';
-import SignRequest from '../forms/sign-request';
 import LoadingOverlay from 'react-loading-overlay';
 import { FadeLoader } from 'react-spinners';
-import { Link } from 'react-router-dom';
 Formio.use(uswds);
 export const Home = () => {
   const [jwtToken, setJwtToken] = useState(0);
@@ -41,8 +39,6 @@ export const Home = () => {
     http.post('https://dev-portal.fs.gsa.gov/dev/admin/login', requestData).then(response => {
       setJwtToken(response.headers['x-jwt-token']);
       console.log(response.status);
-      console.log(response.statusText);
-      console.log(response.headers['x-jwt-token']);
     });
   };
 
@@ -54,15 +50,15 @@ export const Home = () => {
 
   const getSignedRequest = async key => {
     const pdfUrl = 'https://dev-portal.fs.gsa.gov/dev/form/5fd14dd2ba8cc517f0ec74e4/submission/' + submissionId + '/download?token=' + key;
-    console.log('pdfUrl **** ' + pdfUrl);
+    const pdfName = 'F8821.pdf';
     const { data: response } = await http.get('api/sign', {
       params: {
-        pdfUrl
+        pdfUrl,
+        pdfName
       }
     });
     console.log('response ***** ' + JSON.stringify(response));
     const embed_url = response.signers[0].embed_url;
-    console.log('embed url ***** ' + response.signers[0].embed_url);
     setEmbedUrl(embed_url);
     setLoader(false);
   };
@@ -112,8 +108,7 @@ export const Home = () => {
           />
         </div>
       ) : (
-        (window.location.href = embedUrl)
-        // <object type="text/html" data={embedUrl} width="1200px" height="800px" style={{ overflow: 'auto' }} />
+          (window.location.href = embedUrl)
       )}
     </LoadingOverlay>
   );

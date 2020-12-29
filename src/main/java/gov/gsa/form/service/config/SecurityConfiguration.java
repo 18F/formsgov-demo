@@ -14,7 +14,6 @@ import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
 
 import static gov.gsa.form.service.security.CustomSAMLConfigurer.saml;
 
-
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true, securedEnabled = true)
@@ -30,18 +29,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
     @Value("${server.ssl.key-store-password}")
     private String password;
 
-    @Value("${security.saml2.port}")
+    @Value("${port}")
     private String port;
+
+    @Value("${host}")
+    private String host;
 
     @Value("${server.ssl.key-store}")
     private String keyStoreFilePath;
 
-    @Value("${security.saml2.server}")
-    private String host;
-
     @Value("${security.saml2.entityId}")
     private String entityId;
-
 
     @Override
     public void configure(WebSecurity web) throws Exception {

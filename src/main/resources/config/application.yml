@@ -93,6 +93,9 @@ security:
     saml2:
         entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
         metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
-        server: ${HOST:localhost}
-        port: ${PORT:8181}
+host: ${HOST:localhost}
+port: ${PORT:8181}
 
+#sign request
+sign-request-token: ${SIGN_REQUEST_TOKEN:}
+sign-request-url: ${SIGN_REQUEST_URL:https://formservice.sr-sandb.appsquared.io/api/v1/signrequest-quick-create/}

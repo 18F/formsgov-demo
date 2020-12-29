@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletRequest;
 @RequestMapping("/api")
 public class UserResource {
 
-
     @GetMapping(value = "/user")
     public User getCurrentUser(HttpServletRequest request){
         return (User) request.getSession().getAttribute("user");
