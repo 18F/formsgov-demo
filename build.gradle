@@ -233,6 +233,7 @@ dependencies {
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor") {
         exclude group: 'com.vaadin.external.google', module: 'android-json'
     }
+    annotationProcessor "org.projectlombok:lombok:1.18.16"
     testCompile "com.jayway.jsonpath:json-path"
     testCompile "io.cucumber:cucumber-junit"
     testCompile "io.cucumber:cucumber-spring"
