@@ -86,7 +86,7 @@ jobs:
             - getdependencies
             - run:
                 name: Run Front End Tests
-                command: npm run test-ci
+                command: npm run test
     verify:
         executor: ci-executor
         steps:
