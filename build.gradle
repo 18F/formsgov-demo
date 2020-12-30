@@ -253,7 +253,7 @@ dependencies {
     testCompile('com.squareup.okhttp3:mockwebserver:3.2.0')
 }
 
-task intTest(type: Test) {
+task integrationTest(type: Test) {
     description = "Execute Integration Test."
     testClassesDirs = sourceSets.intTest.output.classesDirs
     classpath = sourceSets.intTest.runtimeClasspath
