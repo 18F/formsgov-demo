@@ -61,8 +61,8 @@ jobs:
         steps:
             - getdependencies
             - run:
-                name: clean and build
-                command: './gradlew clean build -x test -x integrationTest --no-daemon'
+                  name: clean and build
+                command: './gradlew clean build -x test -x intTest --no-daemon'
 
     unit-test:
         executor: ci-executor
