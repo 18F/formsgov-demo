@@ -51,7 +51,6 @@ public class SignRequestServiceImpl implements SignRequestService {
     @Value("${sign-request-url}")
     private String signRequestUrl;
 
-
     private final WebClient webClient;
 
     public SignRequestServiceImpl(WebClient webClient) {
