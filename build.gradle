@@ -251,20 +251,17 @@ dependencies {
     testCompile('net.bytebuddy:byte-buddy:1.10.1')
     testCompile('org.springframework.boot:spring-boot-starter-test')
     testCompile('com.squareup.okhttp3:mockwebserver:3.2.0')
-
-
-    //jhipster-needle-gradle-dependency - JHipster will add additional dependencies here
 }
 
-//task intTest(type: Test) {
-//    description = "Execute Integration Test."
-//    testClassesDirs = sourceSets.intTest.output.classesDirs
-//    classpath = sourceSets.intTest.runtimeClasspath
-//    outputs.upToDateWhen { false }
-//}
+task intTest(type: Test) {
+    description = "Execute Integration Test."
+    testClassesDirs = sourceSets.intTest.output.classesDirs
+    classpath = sourceSets.intTest.runtimeClasspath
+    outputs.upToDateWhen { false }
+}
 
-//check.dependsOn intTest
-//intTest.mustRunAfter test
+check.dependsOn intTest
+intTest.mustRunAfter test
 
 task cleanResources(type: Delete) {
     delete 'build/resources'
