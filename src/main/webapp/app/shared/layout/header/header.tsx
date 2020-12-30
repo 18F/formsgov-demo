@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 // tslint:disable-next-line
 const close = require('../../../../content/images/close.png');
 // tslint:disable-next-line
-const logo = require('../../../../content/images/faas-logo.svg');
+// const logo = require('../../../../content/images/faas-logo.svg');
 // tslint:disable-next-line
 const usFlag = require('../../../../content/images/us_flag_small.png');
 // tslint:disable-next-line
