@@ -76,9 +76,9 @@ jobs:
         executor: ci-executor
         steps:
           - getdependencies
-          - run:
-                name: Run Integration Test
-              command: './gradlew clean intTest --no-daemon'
+          -   run:
+                  name: Run Integration Test
+                  command: './gradlew clean intTest --no-daemon'
 
     front-end-test:
         executor: ci-executor
