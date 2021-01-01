@@ -38,9 +38,30 @@ Developement Ribbon
   background: url('../../../../content/images/close.png') no-repeat center top;
   background-size: contain;
 }
-.lock {
-  height: 30px;
-  width: 35px;
+.usa-menu-btn {
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-weight: 400;
+  margin-right: 14px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+  padding: 0;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #005ea2;
+  color: #fff;
+  font-size: .87rem;
+  height: 3rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
 }
 @media (min-width: 64em) {
   .logo {
