@@ -1,7 +1,7 @@
 import './home.scss';
 import React, { useState, useEffect } from 'react';
 import http from '../../shared/service/http-service';
-import { Form, submission } from 'react-formio';
+import { Form } from 'react-formio';
 import uswds from '@formio/uswds';
 import { Formio } from 'formiojs';
 import LoadingOverlay from 'react-loading-overlay';
