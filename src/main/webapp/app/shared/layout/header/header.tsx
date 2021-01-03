@@ -4,7 +4,7 @@ import { Link, NavLink } from 'react-router-dom';
 // tslint:disable-next-line
 const close = require('../../../../content/images/close.png');
 // tslint:disable-next-line
-// const logo = require('../../../../content/images/faas-logo.svg');
+const lock = require('../../../../content/images/lock.png');
 // tslint:disable-next-line
 const usFlag = require('../../../../content/images/us_flag_small.png');
 // tslint:disable-next-line
@@ -58,8 +58,8 @@ const Header = () => {
                             </strong>
                     <br />
                         A <strong>lock</strong> (
-                            <span className="icon-lock" />
-                    <img className="lock" src={iconHttps} alt="A locked padlock" />
+                            <span />
+                    <img src={lock} alt="A locked padlock" />
                             ) or <strong>https://</strong> means you’ve safely connected to the .gov website. Share sensitive information only on official, secure websites.
 
                         </p>
@@ -79,7 +79,7 @@ const Header = () => {
               </Link>
               <span className="usa-sr-only">Home</span>
             </div>
-            <button className="usa-button--accent-cool usa-menu-btn">Menu</button>
+            <button className="usa-menu-btn">Menu</button>
           </div>
           <nav aria-label="Primary navigation" className="usa-nav" role="navigation">
             <button className="usa-nav__close">
