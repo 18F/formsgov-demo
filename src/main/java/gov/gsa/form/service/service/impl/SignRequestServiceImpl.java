@@ -8,8 +8,6 @@ import gov.gsa.form.service.service.SignRequestService;
 import gov.gsa.form.service.util.ObjectMapperUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
@@ -26,7 +24,7 @@ import java.util.List;
  * @author Wube Kifle
  *
  * <p>
- * A service class to send Sign request using Non Blocking HTTP Request
+ * A service class to send a Sign request using Non Blocking HTTP Request
  * </p>
  */
 @Named
@@ -53,8 +51,11 @@ public class SignRequestServiceImpl implements SignRequestService {
 
     private final WebClient webClient;
 
-    public SignRequestServiceImpl(WebClient webClient) {
+    private final HttpServletRequest request;
+
+    public SignRequestServiceImpl(WebClient webClient, HttpServletRequest request) {
         this.webClient = webClient;
+        this.request = request;
     }
 
     @Override
@@ -76,9 +77,6 @@ public class SignRequestServiceImpl implements SignRequestService {
         String redirectUrl = String.format("%s%s:%s%s", HTTPS, this.host, this.port, FAAS);
         String urlToRedirectOnceSigned = redirectUrl + REDIRECT_URL_SIGNED;
         String urlToRedirectIfNotSigned = redirectUrl + REDIRECT_URL_NOT_SIGNED;
-        HttpServletRequest request =
-            ((ServletRequestAttributes) RequestContextHolder.currentRequestAttributes())
-                .getRequest();
         User user = (User) request.getSession().getAttribute(USER);
         Signers signers = new Signers(user.getEmail(),
             user.getFirstName(),
@@ -98,8 +96,11 @@ public class SignRequestServiceImpl implements SignRequestService {
 
     private Mono<String> postRequest(String reqBody) {
         return webClient.post().uri(signRequestUrl)
-            .header("Authorization", "TOKEN " + token)
-            .header("Content-Type", "application/json")
+            .headers(httpHeaders -> {
+                    httpHeaders.add("Authorization", "TOKEN " + token);
+                    httpHeaders.add("Content-Type", "application/json");
+                }
+            )
             .body(Mono.just(reqBody), String.class)
             .retrieve().bodyToMono(String.class);
     }
