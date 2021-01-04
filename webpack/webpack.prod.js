@@ -5,6 +5,7 @@ const WorkboxPlugin = require('workbox-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 const MomentLocalesPlugin = require('moment-locales-webpack-plugin');
+const path = require('path');
 const sass = require('sass');
 
 const utils = require('./utils.js');
@@ -19,7 +20,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     main: './src/main/webapp/app/index'
   },
   output: {
-    path: utils.root('build/resources/main/static/'),
+    path: utils.root('build/resources/main/public'),
     filename: 'app/[name].[hash].bundle.js',
     chunkFilename: 'app/[name].[hash].chunk.js'
   },
@@ -46,7 +47,7 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
             options: { implementation: sass }
           }
         ]
-      }
+      },
     ]
   },
   optimization: {
@@ -57,27 +58,13 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
         parallel: true,
         // sourceMap: true, // Enable source maps. Please note that this will slow down the build
         terserOptions: {
-          ecma: 6,
-          toplevel: true,
-          module: true,
           beautify: false,
           comments: false,
           compress: {
-            warnings: false,
-            ecma: 6,
-            module: true,
-            toplevel: true
-          },
-          output: {
-              comments: false,
-              beautify: false,
-              indent_level: 2,
-              ecma: 6
+            warnings: false
           },
           mangle: {
-            keep_fnames: true,
-            module: true,
-            toplevel: true
+            keep_fnames: true
           }
         }
       }),
@@ -102,7 +89,6 @@ module.exports = webpackMerge(commonConfig({ env: ENV }), {
     new WorkboxPlugin.GenerateSW({
       clientsClaim: true,
       skipWaiting: true,
-      exclude: [/swagger-ui/]
     })
   ]
 });

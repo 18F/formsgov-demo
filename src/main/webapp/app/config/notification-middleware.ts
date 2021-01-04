@@ -21,8 +21,8 @@ export default () => next => action => {
         toast.success(action.meta.successMessage);
       } else if (response && response.action && response.action.payload && response.action.payload.headers) {
         const headers = response.action.payload.headers;
-        let alert: string | null = null;
-        Object.entries<string>(headers).forEach(([k, v]) => {
+        let alert: string = null;
+        Object.entries(headers).forEach(([k, v]: [string, string]) => {
           if (k.toLowerCase().endsWith('app-alert')) {
             alert = v;
           }
@@ -39,7 +39,7 @@ export default () => next => action => {
       } else if (error && error.response) {
         const response = error.response;
         const data = response.data;
-        if (!(response.status === 401 && (error.message === '' || (data && data.path && data.path.includes('/api/account'))))) {
+        if (!(response.status === 401 && (error.message === '' || (data && data.path)))) {
           let i;
           switch (response.status) {
             // connection refused, server not reachable
@@ -47,10 +47,10 @@ export default () => next => action => {
               addErrorAlert('Server not reachable', 'error.server.not.reachable');
               break;
 
-            case 400: {
-              const headers = Object.entries<string>(response.headers);
-              let errorHeader: string | null = null;
-              let entityKey: string | null = null;
+            case 400:
+              const headers = Object.entries(response.headers);
+              let errorHeader = null;
+              let entityKey = null;
               headers.forEach(([k, v]: [string, string]) => {
                 if (k.toLowerCase().endsWith('app-error')) {
                   errorHeader = v;
@@ -79,7 +79,7 @@ export default () => next => action => {
                 addErrorAlert(data);
               }
               break;
-            }
+
             case 404:
               addErrorAlert('Not found', 'error.url.not.found');
               break;
@@ -92,9 +92,6 @@ export default () => next => action => {
               }
           }
         }
-      } else if (error && error.config && error.config.url === 'api/account' && error.config.method === 'get') {
-        /* eslint-disable no-console */
-        console.log('Authentication Error: Trying to access url api/account with GET.');
       } else if (error && error.message) {
         toast.error(error.message);
       } else {

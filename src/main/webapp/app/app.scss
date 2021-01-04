@@ -1,10 +1,20 @@
 // Override Boostrap variables
-@import '~bootswatch/dist/cosmo/variables';
+@import 'bootstrap-variables';
 // Import Bootstrap source files from node_modules
 @import 'node_modules/bootstrap/scss/bootstrap';
-@import '~bootswatch/dist/cosmo/bootswatch';
 body {
-  margin: 0;
+  background-color:#f1f1f1;
+  color: color("ink");
+  overflow-x: hidden;
+
+  display: block;
+}
+
+html {
+  font-feature-settings: "kern" 1;
+  font-kerning: normal;
+  font-family: Source Sans Pro Web, Helvetica Neue,Helvetica,Roboto,Arial,sans-serif;
+  font-size: 100%;
 }
 
 a {
@@ -22,36 +32,33 @@ a {
   }
 }
 
-.app-container {
-  box-sizing: border-box;
-  .view-container {
-    width: 100%;
-    height: calc(100% - 40px);
-    overflow-y: auto;
-    overflow-x: hidden;
-    padding: 1rem;
-    .card {
-      padding: 1rem;
-    }
-    .view-routes {
-      height: 100%;
-      > div {
-        height: 100%;
-      }
-    }
-  }
-}
-
-.fullscreen {
-  position: fixed;
-  top: 100px;
-  left: 0px;
-  width: 99% !important;
-  height: calc(100vh - 110px) !important;
-  margin: 5px;
-  z-index: 1000;
-  padding: 5px 25px 50px 25px !important;
-}
+// .app-container {
+//   box-sizing: border-box;
+//   .view-container {
+//     width: 100%;
+//     height: calc(100% - 40px);
+//     overflow-y: auto;
+//     overflow-x: auto;
+//     padding: 0rem 4.5rem 0 4.5rem;
+//     background-color: #f1f1f1;
+//     //background-color: rgba(97, 93, 93, 0.144);
+//     position: fixed;
+//     z-index: 1000;
+//   }
+// }
+// .fullscreen {
+//   position: fixed;
+//   top: 100px;
+//   left: 0px;
+//   width: 99% !important;
+//   height: calc(100vh - 110px) !important;
+//   margin: 5px;
+//   z-index: 1000;
+//   padding: 5px 25px 50px 25px !important;
+// }
+// .container {
+//   background-color: #f1f1f1;
+// }
 
 /* ==========================================================================
 Browser Upgrade Prompt
@@ -87,7 +94,7 @@ Custom button styles
 Generic styles
 ========================================================================== */
 
-/* Temporary workaround for availity-reactstrap-validation */
+/* Temperory workaround for availity-reactstrap-validation */
 .invalid-feedback {
   display: inline;
 }
@@ -310,4 +317,43 @@ http://stackoverflow.com/questions/23436430/bootstrap-3-input-group-100-width */
   width: 1% !important;
 }
 
-/* jhipster-needle-scss-add-main JHipster will add new css style */
+// Fix checkbox alignment https://github.com/jhipster/generator-jhipster/issues/8463
+.form-check-input {
+  margin-top: -0.5rem;
+}
+
+.paper {
+  padding: 2;
+  text-align: center;
+}
+
+/* jhipster-needle-css-add-main JHipster will add new css style */
+#link .usa-button--unstyled {
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  color: #0071bc;
+  text-decoration: underline;
+  background-color: transparent;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-weight: 400;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+  font-size: large;
+}
+#link .usa-button:hover {
+  background-color: #aeb0b5 !important;
+}
+
+.card {
+  background-color: #f2f5f7;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  border-radius: 0.25rem;
+  padding: 20px;
+  margin-bottom: 30px;
+  margin-top: 10px;
+}

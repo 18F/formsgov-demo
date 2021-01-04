@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, RouteProps } from 'react-router-dom';
-import ErrorBoundary from 'app/shared/error/error-boundary';
+import ErrorBoundary from '../../../app/shared/error/error-boundary';
 
 export const ErrorBoundaryRoute = ({ component: Component, ...rest }: RouteProps) => {
   const encloseInErrorBoundary = props => (

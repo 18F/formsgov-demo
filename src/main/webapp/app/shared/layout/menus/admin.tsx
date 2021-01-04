@@ -7,6 +7,9 @@ import { NavDropdown } from './menu-components';
 
 const adminMenuItems = (
   <>
+    <MenuItem icon="user" to="/admin/user-management">
+      User management
+    </MenuItem>
     <MenuItem icon="tachometer-alt" to="/admin/metrics">
       Metrics
     </MenuItem>

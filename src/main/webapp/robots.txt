@@ -2,6 +2,7 @@
 
 User-agent: *
 Disallow: /api/account
+Disallow: /api/account/sessions
 Disallow: /api/audits/
 Disallow: /api/logs/
 Disallow: /api/users/

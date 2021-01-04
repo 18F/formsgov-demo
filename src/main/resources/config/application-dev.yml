@@ -17,54 +17,28 @@ logging:
   level:
     ROOT: DEBUG
     io.github.jhipster: DEBUG
-    gov.gsa.faas: DEBUG
+    gov.gsa.form.service: DEBUG
 
 spring:
   profiles:
     active: dev
     include:
-      - swagger
+      no-liquibase,tls
       # Uncomment to activate TLS for the dev profile
       #- tls
   devtools:
     restart:
       enabled: true
-      additional-exclude: static/**
     livereload:
       enabled: false # we use Webpack dev server + BrowserSync for livereload
   jackson:
-    serialization:
-      indent-output: true
-  liquibase:
-    # Remove 'faker' if you do not want the sample data to be loaded automatically
-    contexts: dev, faker
-    url: jdbc:postgresql://localhost:5432/faas
-  mail:
-    host: localhost
-    port: 25
-    username:
-    password:
+    serialization.indent_output: true
   messages:
     cache-duration: PT1S # 1 second, see the ISO 8601 standard
-  r2dbc:
-    url: r2dbc:postgresql://localhost:5432/faas
-    username: faas
-    password:
   thymeleaf:
     cache: false
-  sleuth:
-    sampler:
-      probability: 1 # report 100% of traces
-  zipkin: # Use the "zipkin" Maven profile to have the Spring Cloud Zipkin dependencies
-    base-url: http://localhost:9411
-    enabled: false
-    locator:
-      discovery:
-        enabled: true
-
-server:
-  port: 8181
-
+    # This is true to make SpringBoot to automatically register a bean of type 'org.springframework.amqp.core.AmqpAdmin'.
+    # Check the org.springframework.boot.autoconfigure.amqp.RabbitAutoConfiguration javadoc for details.
 # ===================================================================
 # JHipster specific properties
 #
@@ -77,6 +51,16 @@ jhipster:
       enabled: false
       limit: 100000
       duration-in-seconds: 3600
+    authorized-microservices-endpoints: # Access Control Policy, if left empty for a route, all endpoints will be accessible
+      app1: /api,/v2/api-docs # recommended dev configuration
+  cache: # Cache configuration
+    hazelcast: # Hazelcast distributed cache
+      time-to-live-seconds: 3600
+      backup-count: 1
+      management-center: # Full reference is available at: http://docs.hazelcast.org/docs/management-center/3.9/manual/html/Deploying_and_Starting.html
+        enabled: false
+        update-interval: 3
+        url: http://localhost:8180/mancenter
   # CORS is only enabled by default with the "dev" profile, so BrowserSync can access the API
   cors:
     allowed-origins: '*'
@@ -85,21 +69,20 @@ jhipster:
     exposed-headers: 'Authorization,Link,X-Total-Count'
     allow-credentials: true
     max-age: 1800
-  mail: # specific JHipster mail property, for standard properties see MailProperties
-    base-url: http://127.0.0.1:8181
-  metrics:
-    logs: # Reports metrics in the logs
-      enabled: false
-      report-frequency: 60 # in seconds
+  security:
+    authentication:
+      jwt:
+        # This token must be encoded using Base64 (you can type `echo 'secret-key'|base64` on your command line)
+        base64-secret: ZjNjYzQ5OGE4YTcyODRkMTlmNzFhMWI3MGZjZDNjMWM4NjM0M2QxYWJiY2RiN2M1NWI3ZTJmNTUxNWY0MTc2MTgwMzQ3ZGU0Mzk5N2QxM2ZhYWFmNDFiNjFmY2JhNWQwMTg4NWU1NjJhOTk0MjgzYTY3MDkwZjAwOWMyZjQ5NTc=
+        # Token is valid 24 hours
+        token-validity-in-seconds: 86400
+        token-validity-in-seconds-for-remember-me: 2592000
   logging:
-    use-json-format: false # By default, logs are not in Json format
     logstash: # Forward logs to logstash over a socket, used by LoggingConfiguration
       enabled: false
       host: localhost
       port: 5000
       queue-size: 512
-  audit-events:
-    retention-period: 30 # Number of days before audit events are deleted.
 
 # ===================================================================
 # Application specific properties

@@ -33,43 +33,51 @@ Developement Ribbon
     pointer-events: none;
   }
 }
-
-/* ==========================================================================
-Navbar styles
-========================================================================== */
-.navbar-version {
-  font-size: 10px;
-  color: $header-color-secondary;
-  padding: 0 0 0 10px;
+.close {
+  display: inline-block;
+  background: url('../../../../content/images/close.png') no-repeat center top;
+  background-size: contain;
 }
-
-.brand-logo {
-  &:hover {
-    text-decoration: none;
-  }
-  .brand-icon {
-    height: 35px;
-    width: auto;
-    display: inline-block;
-    img {
-      height: 45px;
-    }
+.usa-menu-btn {
+  -moz-osx-font-smoothing: auto;
+  -webkit-font-smoothing: subpixel-antialiased;
+  border: 0;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  font-weight: 400;
+  margin-right: 14px;
+  margin-bottom: 6px;
+  margin-top: 6px;
+  padding: 0;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 auto;
+  flex: 0 0 auto;
+  padding-left: 0.75rem;
+  padding-right: 0.75rem;
+  background-color: #005ea2;
+  color: #fff;
+  font-size: .87rem;
+  height: 3rem;
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+}
+@media (min-width: 64em) {
+  .logo {
+    margin-top: 2rem ;
+    margin-bottom: 0rem ;
+    font-size: 1.46rem ;
+    line-height: 1.1;
   }
 }
-
-.brand-title {
-  font-size: 24px;
-  color: $header-color;
-  &:hover {
-    color: $header-color-hover;
-    text-decoration: none;
+@media (max-width: 63.99em) {
+  .logo {
+    -webkit-box-flex: 1;
+    -ms-flex: 1 0 0px;
+    flex: 1 0 0;
+    font-size: 0.93rem;
+    line-height: 0.9;
+    margin-left: 1rem;
   }
-}
-
-.loading-bar {
-  height: 3px;
-  background-color: #009cd8;
-  position: absolute;
-  top: 0px;
-  z-index: 1031;
 }

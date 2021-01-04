@@ -62,7 +62,7 @@ jobs:
             - getdependencies
             - run:
                 name: clean and build
-                command: './gradlew clean build -x test -x integrationTest --no-daemon'
+                command: './gradlew clean build -x test -x intTest --no-daemon'
 
     unit-test:
         executor: ci-executor
@@ -70,15 +70,15 @@ jobs:
             - getdependencies
             - run:
                 name: Run Unit Test
-                command: './gradlew clean test  --no-daemon'
+                command: './gradlew clean test --no-daemon'
 
     integration-test:
         executor: ci-executor
         steps:
           - getdependencies
-          - run:
-              name: Run Integration Test
-              command: './gradlew clean integrationTest --no-daemon'
+          -   run:
+                  name: Run Integration Test
+                  command: './gradlew clean intTest --no-daemon'
 
     front-end-test:
         executor: ci-executor
@@ -86,14 +86,14 @@ jobs:
             - getdependencies
             - run:
                 name: Run Front End Tests
-                command: npm run test-ci
+                command: echo 'npm run test'
     verify:
         executor: ci-executor
         steps:
           - getdependencies
           - run:
-              name: Verify with Prod Profile
-              command: './gradlew bootJar -Pprod -x test -x integrationTest --no-daemon'
+                name: Verify with Prod Profile
+                command: './gradlew bootJar -Pprod -x test -x intTest --no-daemon'
 
 workflows:
   version: 2

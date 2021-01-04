@@ -1,71 +1,48 @@
 import 'react-toastify/dist/ReactToastify.css';
 import './app.scss';
-
-import React, { useEffect } from 'react';
+import React, { Fragment, useEffect } from 'react';
 import { connect } from 'react-redux';
-import { Card } from 'reactstrap';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
-import { hot } from 'react-hot-loader';
+import { HashRouter as Router } from 'react-router-dom';
+import { ToastContainer, toast, ToastPosition } from 'react-toastify';
+import { IRootState } from '../app/shared/reducers';
+import Header from '../app/shared/layout/header/header';
+import Footer from '../app/shared/layout/footer/footer';
+import { hasAnyAuthority } from '../app/shared/auth/private-route';
+import ErrorBoundary from '../app/shared/error/error-boundary';
+import { AUTHORITIES } from '../app/config/constants';
+import AppRoutes from '../app/routes';
 
-import { IRootState } from 'app/shared/reducers';
-import { getSession } from 'app/shared/reducers/authentication';
-import { getProfile } from 'app/shared/reducers/application-profile';
-import Header from 'app/shared/layout/header/header';
-import Footer from 'app/shared/layout/footer/footer';
-import { hasAnyAuthority } from 'app/shared/auth/private-route';
-import ErrorBoundary from 'app/shared/error/error-boundary';
-import { AUTHORITIES } from 'app/config/constants';
-import AppRoutes from 'app/routes';
+const baseHref = document
+  .querySelector('base')
+  .getAttribute('href')
+  .replace(/\/$/, '');
 
-const baseHref = document.querySelector('base').getAttribute('href').replace(/\/$/, '');
-
-export interface IAppProps extends StateProps, DispatchProps {}
-
-export const App = (props: IAppProps) => {
-  useEffect(() => {
-    props.getSession();
-    props.getProfile();
-  }, []);
-
-  const paddingTop = '60px';
+export const App = () => {
   return (
-    <Router basename={baseHref}>
-      <div className="app-container" style={{ paddingTop }}>
-        <ToastContainer position={toast.POSITION.TOP_LEFT} className="toastify-container" toastClassName="toastify-toast" />
-        <ErrorBoundary>
-          <Header
-            isAuthenticated={props.isAuthenticated}
-            isAdmin={props.isAdmin}
-            ribbonEnv={props.ribbonEnv}
-            isInProduction={props.isInProduction}
-            isSwaggerEnabled={props.isSwaggerEnabled}
-          />
-        </ErrorBoundary>
-        <div className="container-fluid view-container" id="app-view-container">
-          <Card className="jh-card">
-            <ErrorBoundary>
-              <AppRoutes />
-            </ErrorBoundary>
-          </Card>
-          <Footer />
-        </div>
-      </div>
+    <Router>
+      <Fragment>
+        <ToastContainer
+          position={toast.POSITION.TOP_LEFT as ToastPosition}
+          className="toastify-container"
+          toastClassName="toastify-toast"
+        />
+        <Header />
+        <main className="main-content mt-3" id="main-content" aria-label="Content">
+          <div>
+            <div className="grid-container">
+              <div className="grid-row">
+                <div className="grid-col-12 card">
+                  <ErrorBoundary>
+                    <AppRoutes />
+                  </ErrorBoundary>
+                </div>
+              </div>
+            </div>
+          </div>
+        </main>
+        <Footer />
+      </Fragment>
     </Router>
   );
 };
-
-const mapStateToProps = ({ authentication, applicationProfile }: IRootState) => ({
-  isAuthenticated: authentication.isAuthenticated,
-  isAdmin: hasAnyAuthority(authentication.account.authorities, [AUTHORITIES.ADMIN]),
-  ribbonEnv: applicationProfile.ribbonEnv,
-  isInProduction: applicationProfile.inProduction,
-  isSwaggerEnabled: applicationProfile.isSwaggerEnabled,
-});
-
-const mapDispatchToProps = { getSession, getProfile };
-
-type StateProps = ReturnType<typeof mapStateToProps>;
-type DispatchProps = typeof mapDispatchToProps;
-
-export default connect(mapStateToProps, mapDispatchToProps)(hot(module)(App));
+export default App;

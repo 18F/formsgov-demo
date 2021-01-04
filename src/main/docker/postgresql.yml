@@ -1,11 +1,11 @@
 version: '2'
 services:
-  faas-postgresql:
+  formservice-postgresql:
     image: postgres:12.3
     # volumes:
-    #     - ~/volumes/jhipster/faas/postgresql/:/var/lib/postgresql/data/
+    #     - ~/volumes/jhipster/formservice/postgresql/:/var/lib/postgresql/data/
     environment:
-      - POSTGRES_USER=faas
+      - POSTGRES_USER=formservice
       - POSTGRES_PASSWORD=
       - POSTGRES_HOST_AUTH_METHOD=trust
     ports:

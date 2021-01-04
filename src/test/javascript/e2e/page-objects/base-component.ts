@@ -1,6 +1,7 @@
 import { ElementFinder } from 'protractor';
 
 import { isDisplayed, isHidden, waitUntilDisplayed, waitUntilHidden } from '../util/utils';
+
 /**
  * Base ui component class that other components should inherit from.
  */
