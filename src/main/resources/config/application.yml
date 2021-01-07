@@ -91,6 +91,8 @@ logging:
         name: build/formservice.log
 security:
     saml2:
+#        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
+        #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
         entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
         metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
 host: ${HOST:localhost}
