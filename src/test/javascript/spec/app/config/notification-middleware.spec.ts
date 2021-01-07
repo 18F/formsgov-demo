@@ -103,7 +103,7 @@ describe('Notification Middleware', () => {
     })
   };
 
-  const makeStore = () => applyMiddleware(notificationMiddleware, promiseMiddleware())(createStore)(() => null);
+  const makeStore = () => applyMiddleware(notificationMiddleware, promiseMiddleware)(createStore)(() => null);
 
   beforeEach(() => {
     store = makeStore();

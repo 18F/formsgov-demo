@@ -20,7 +20,6 @@ const rootEl = document.getElementById('root');
 
 const render = Component =>
   ReactDOM.render(
-    // <ErrorBoundary>
     <AppContainer>
       <Provider store={store}>
         <div>
@@ -30,16 +29,7 @@ const render = Component =>
         </div>
       </Provider>
     </AppContainer>,
-    // </ErrorBoundary>,
     rootEl
   );
 
 render(AppComponent);
-
-// This is quite unstable
-// if (module.hot) {
-//   module.hot.accept('./app', () => {
-//     const NextApp = require<{ default: typeof AppComponent }>('./app').default;
-//     render(NextApp);
-//   });
-// }
