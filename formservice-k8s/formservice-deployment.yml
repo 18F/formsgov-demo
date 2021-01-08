@@ -1,20 +1,20 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: formservice02
+  name: formservice
 spec:
   replicas: 1
   selector:
     matchLabels:
-      name: formservice02
+      name: formservice
   template:
     metadata:
       labels:
-        name: formservice02
+        name: formservice
     spec:
       containers:
         - name: app
-          image: 306881650362.dkr.ecr.us-gov-west-1.amazonaws.com/faas-sandb/microservice:latest
+          image: 306881650362.dkr.ecr.us-gov-west-1.amazonaws.com/faas-sandb/microservice:sm
           imagePullPolicy: Always
           ports:
             - containerPort: 8181
@@ -22,11 +22,13 @@ spec:
             - name: SPRING_PROFILES_ACTIVE
               value: dev
             - name: HOST
-              value: agency01-ms-sandb-02.appsquared.io
+              value: agency01-ms-sandb.appsquared.io
             - name: PORT
               value: '443'
             - name: ENTITYID
-              value: urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs.gov:irs-form 
+              value: FASS
+            - name: METADATA_URL
+              value: https://faas-dev-static-assets.s3-us-gov-west-1.amazonaws.com/idp-metadata.xml
 # # apiVersion: apps/v1
 # # kind: Deployment
 # # metadata:

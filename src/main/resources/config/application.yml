@@ -94,10 +94,10 @@ security:
 #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
         #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
         entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
-        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
+        metadata-url: ${METADATA_URL:https://faas-dev-static-assets.s3-us-gov-west-1.amazonaws.com/idp-metadata.xml}
 host: ${HOST:localhost}
 port: ${PORT:8181}
 
 #sign request
-sign-request-token: ${SIGN_REQUEST_TOKEN:}
+sign-request-token: ${SIGN_REQUEST_TOKEN:ddcf8999cb911fbf0e63953e5a40785fe5948d5a}
 sign-request-url: ${SIGN_REQUEST_URL:https://formservice.sr-sandb.appsquared.io/api/v1/signrequest-quick-create/}
