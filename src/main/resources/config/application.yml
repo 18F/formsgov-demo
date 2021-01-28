@@ -105,10 +105,10 @@ logging:
                     service: DEBUG
 security:
     saml2:
-        #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
-        #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
-        metadata-url: ${METADATA_URL:classpath:idp-metadata/GSA_FAAS_IDP_UATMetadata.xml}
-        entityId: ${ENTITYID:FAAS}
+        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
+        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
+#        metadata-url: ${METADATA_URL:classpath:idp-metadata/GSA_FAAS_IDP_UATMetadata.xml}
+#        entityId: ${ENTITYID:FAAS}
 #        metadata-url: ${METADATA_URL:https://faas-dev-static-assets.s3-us-gov-west-1.amazonaws.com/idp-metadata.xml}
 host: ${HOST:localhost}
 port: ${PORT:8181}

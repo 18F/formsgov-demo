@@ -79,7 +79,7 @@ public class ServiceProviderConfig extends WebSecurityConfigurerAdapter {
             .and()
             .sso()
             .defaultSuccessURL("/faas")
-            .idpSelectionPageURL("/idpselection")
+//            .idpSelectionPageURL("/idpselection")
             .and()
             .metadataManager()
             .metadataLocations(this.metadataUrl)
@@ -87,7 +87,7 @@ public class ServiceProviderConfig extends WebSecurityConfigurerAdapter {
             .and()
             .extendedMetadata()
             .ecpEnabled(true)
-            .idpDiscoveryEnabled(true)//set to false for no IDP Selection page.
+            .idpDiscoveryEnabled(false)//set to false for no IDP Selection page.
             .and()
             .keyManager()
 //            .storeLocation("classpath:config/tls/keystore.p12")
