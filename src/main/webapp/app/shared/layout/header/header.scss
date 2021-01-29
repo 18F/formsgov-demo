@@ -57,7 +57,7 @@ Developement Ribbon
   padding-right: 0.75rem;
   background-color: #005ea2;
   color: #fff;
-  font-size: .87rem;
+  font-size: 0.87rem;
   height: 3rem;
   text-align: center;
   text-decoration: none;
@@ -65,10 +65,11 @@ Developement Ribbon
 }
 @media (min-width: 64em) {
   .logo {
-    margin-top: 2rem ;
-    margin-bottom: 0rem ;
-    font-size: 1.46rem ;
+    margin-top: 1rem;
+    padding-bottom: 0.5rem;
+    font-size: 1.46rem;
     line-height: 1.1;
+    margin-left: -0.5rem;
   }
 }
 @media (max-width: 63.99em) {

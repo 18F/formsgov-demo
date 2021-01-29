@@ -20,14 +20,14 @@ const baseHref = document
 export const App = () => {
   return (
     <Router>
-      <Fragment>
+      <div className="app-container">
         <ToastContainer
           position={toast.POSITION.TOP_LEFT as ToastPosition}
           className="toastify-container"
           toastClassName="toastify-toast"
         />
         <Header />
-        <main className="main-content mt-3" id="main-content" aria-label="Content">
+        <main className="main-content background" id="main-content" aria-label="Content">
           <div>
             <div className="grid-container">
               <div className="grid-row">
@@ -41,7 +41,7 @@ export const App = () => {
           </div>
         </main>
         <Footer />
-      </Fragment>
+      </div>
     </Router>
   );
 };
