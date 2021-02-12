@@ -1,6 +1,7 @@
 package gov.gsa.form.service.config;
 
 import com.github.ulisesbocchio.spring.boot.security.saml.bean.SAMLConfigurerBean;
+import gov.gsa.form.service.security.UserDetails;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -12,7 +13,11 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.saml.websso.WebSSOProfileOptions;
 import org.zalando.problem.spring.web.advice.security.SecurityProblemSupport;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Configuration
 //@EnableWebSecurity
@@ -59,6 +64,12 @@ public class ServiceProviderConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
+        WebSSOProfileOptions webSSOProfileOptions = new WebSSOProfileOptions();
+        List<String> authnContext = new ArrayList<>();
+        authnContext.add("http://idmanagement.gov/ns/assurance/aal/2");
+        authnContext.add("http://idmanagement.gov/ns/assurance/ial/2");
+        authnContext.add("http://idmanagement.gov/ns/requested_attributes?ReqAttr=email,phone,first_name,last_name,address1,address2,city,state,zipcode,phone,ssn");
+        webSSOProfileOptions.setAuthnContexts(authnContext);
         // @formatter:off
         http.authorizeRequests()
             .antMatchers("/faas/saml*").permitAll()
@@ -78,8 +89,12 @@ public class ServiceProviderConfig extends WebSecurityConfigurerAdapter {
             .ecpProfile()
             .and()
             .sso()
-            .defaultSuccessURL("/faas")
+            .profileOptions(webSSOProfileOptions)
+            .defaultSuccessURL("/faas/ui")
 //            .idpSelectionPageURL("/idpselection")
+            .and()
+            .authenticationProvider()
+            .userDetailsService(new UserDetails())
             .and()
             .metadataManager()
             .metadataLocations(this.metadataUrl)

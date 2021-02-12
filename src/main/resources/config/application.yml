@@ -27,34 +27,34 @@ management:
 
 spring:
     autoconfigure:
-    exclude:
-        - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration
-        - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
+        exclude:
+            - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchAutoConfiguration
+            - org.springframework.boot.autoconfigure.data.elasticsearch.ElasticsearchDataAutoConfiguration
     application:
         name: formservice
-        profiles:
-            # The commented value for `active` can be replaced with valid Spring profiles to load.
-            # Otherwise, it will be filled in by gradle when building the WAR file
-            # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
-            active: #spring.profiles.active#
-            messages:
-                basename: i18n/messages
-            thymeleaf:
-                mode: HTML
+    profiles:
+        # The commented value for `active` can be replaced with valid Spring profiles to load.
+        # Otherwise, it will be filled in by gradle when building the WAR file
+        # Either way, it can be overridden by `--spring.profiles.active` value passed in the commandline or `-Dspring.profiles.active` set in `JAVA_OPTS`
+        active: #spring.profiles.active#
+    messages:
+        basename: i18n/messages
+    thymeleaf:
+        mode: HTML
 server:
+    #    ssl:
+    #        key-store: classpath:config/tls/keystore.p12
+    #        key-store-password: password
+    #        key-store-type: PKCS12
+    #        key-alias: selfsigned
     port: 8181
     servlet.context-path: /faas
     servlet:
         session:
             cookie:
-                #                name: FAASESSIONID
-                #                path: /faas
-                http-only: true
-                secure: true
-                max-age: 3600
-            timeout: 60
-            tracking-modes: COOKIE
-
+                name: FAASESSIONID
+                path: /
+                http-only: false
 
 # Properties to be exposed on the /info management endpoint
 info:
@@ -94,22 +94,14 @@ jhipster:
 logging:
     file:
         name: build/formservice.log
-        org:
-            springframework:
-                security:
-                    saml: DEBUG
-        org.opensaml: DEBUG
-        gov:
-            gsa:
-                form:
-                    service: DEBUG
 security:
     saml2:
+        #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
+        #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
+        #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
+        #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
         entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
         metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
-#        metadata-url: ${METADATA_URL:classpath:idp-metadata/GSA_FAAS_IDP_UATMetadata.xml}
-#        entityId: ${ENTITYID:FAAS}
-#        metadata-url: ${METADATA_URL:https://faas-dev-static-assets.s3-us-gov-west-1.amazonaws.com/idp-metadata.xml}
 host: ${HOST:localhost}
 port: ${PORT:8181}
 

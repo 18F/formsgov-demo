@@ -74,7 +74,8 @@ public class SignRequestServiceImpl implements SignRequestService {
     }
 
     private SignRequestPayload buildRequest(byte[] encodedContent, String pdfName) {
-        String redirectUrl = String.format("%s%s:%s%s", HTTPS, this.host, this.port, FAAS);
+        //  String redirectUrl = String.format("%s%s:%s%s", HTTPS, this.host, this.port, FAAS);
+        String redirectUrl = String.format("%s%s%s", HTTPS, this.host, FAAS);
         String urlToRedirectOnceSigned = redirectUrl + REDIRECT_URL_SIGNED;
         String urlToRedirectIfNotSigned = redirectUrl + REDIRECT_URL_NOT_SIGNED;
         User user = (User) request.getSession().getAttribute(USER);
