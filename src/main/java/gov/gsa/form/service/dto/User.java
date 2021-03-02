@@ -1,5 +1,6 @@
 package gov.gsa.form.service.dto;
 
+import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 
@@ -106,4 +107,10 @@ public class User implements Serializable {
     public void setSsn(String ssn) {
         this.ssn = ssn;
     }
+
+    @Override
+    public String toString() {
+        return ToStringBuilder.reflectionToString(this);
+    }
+
 }

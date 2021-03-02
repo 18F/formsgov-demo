@@ -42,14 +42,19 @@ spring:
   thymeleaf:
     mode: HTML
 server:
-  port: 8181
-  servlet.context-path: /faas
-  servlet:
-    session:
-      cookie:
-        name: FAASESSIONID
-        path: /
-        http-only: false
+    ssl:
+        key-store: classpath:config/tls/keystore.p12
+        key-store-password: password
+        key-store-type: PKCS12
+        key-alias: selfsigned
+    port: 8181
+    servlet.context-path: /faas
+    servlet:
+        session:
+            cookie:
+                name: FAASESSIONID
+                path: /
+                http-only: false
 
 # Properties to be exposed on the /info management endpoint
 info:
@@ -99,5 +104,5 @@ host: ${HOST:localhost}
 port: ${PORT:8181}
 
 #sign request
-sign-request-token: ${SIGN_REQUEST_TOKEN:}
+sign-request-token: ${SIGN_REQUEST_TOKEN:ddcf8999cb911fbf0e63953e5a40785fe5948d5a}
 sign-request-url: ${SIGN_REQUEST_URL:https://formservice.sr-sandb.appsquared.io/api/v1/signrequest-quick-create/}

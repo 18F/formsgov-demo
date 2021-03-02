@@ -52,6 +52,17 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .antMatchers("/test/**");
     }
 
+
+//    @Override
+//    public void configure(HttpSecurity http) throws Exception {
+//        http.cors().and().csrf().disable()
+//            .exceptionHandling()
+//            .and()
+//            .headers()
+//            .frameOptions()
+//            .disable();
+//    }
+
     @Override
     protected void configure(final HttpSecurity http) throws Exception {
         http
@@ -70,7 +81,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
             .keyname(this.keyAlias)
             .keyPassword(this.password)
             .and()
-            .protocol("https")
+            .protocol("http")
             .hostname(String.format("%s:%s", this.host, this.port))
             .basePath("/faas")
             .and()

@@ -17,7 +17,7 @@ export const Home = () => {
     login();
     getUser();
   }, []);
-  const xAllow = `GET:/project/5f6a32fb7974387303dc6859/form/5fd14dd2ba8cc517f0ec74e4/submission/${submissionId}/download`;
+  const xAllow = `GET:/project/5f6a32fb7974387303dc6859/form/60138100309b27be40e068d6/submission/${submissionId}/download`;
   const requestData = {
     data: {
       email: 'service@gsa.gov',
@@ -49,7 +49,7 @@ export const Home = () => {
   };
 
   const getSignedRequest = async key => {
-    const pdfUrl = 'https://dev-portal.fs.gsa.gov/dev/form/5fd14dd2ba8cc517f0ec74e4/submission/' + submissionId + '/download?token=' + key;
+    const pdfUrl = 'https://dev-portal.fs.gsa.gov/dev/form/60138100309b27be40e068d6/submission/' + submissionId + '/download?token=' + key;
     const pdfName = 'F8821.pdf';
     const { data: response } = await http.get('api/sign', {
       params: {
@@ -101,7 +101,7 @@ export const Home = () => {
       {embedUrl === '' ? (
         <div>
           <Form
-            src="https://dev-portal.fs.gsa.gov/dev/irs8821"
+            src="https://dev-portal.fs.gsa.gov/dev/new8821"
             onSubmitDone={handleOnSubmitDone}
             onSubmit={handleOnSubmit}
             submission={submissionData}
