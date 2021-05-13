@@ -1,7 +1,7 @@
 ---
 applications:
   - name: formservice
-    memory: 1G
+    memory: 800MB
     path: .
     instances: 1
     buildpacks:

@@ -42,12 +42,12 @@ spring:
     thymeleaf:
         mode: HTML
 server:
-    #    ssl:
-    #        key-store: classpath:config/tls/keystore.p12
-    #        key-store-password: password
-    #        key-store-type: PKCS12
-    #        key-alias: selfsigned
-    port: 8181
+#    ssl:
+#        key-store: classpath:config/tls/keystore.p12
+#        key-store-password: password
+#        key-store-type: PKCS12
+#        key-alias: selfsigned
+    port: 8080
     servlet.context-path: /faas
     servlet:
         session:
@@ -96,15 +96,15 @@ logging:
         name: build/formservice.log
 security:
     saml2:
+         entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
+         metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
         #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
         #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
-        #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
-        #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
-        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
-        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
-host: ${HOST:localhost}
-port: ${PORT:8181}
+#        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas-local}
+#        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
+host: ${HOST:irs8831-demo.app.cloud.gov}
+port: ${PORT:8080}
 
 #sign request
-sign-request-token: ${SIGN_REQUEST_TOKEN:ddcf8999cb911fbf0e63953e5a40785fe5948d5a}
+sign-request-token: ${SIGN_REQUEST_TOKEN:}
 sign-request-url: ${SIGN_REQUEST_URL:https://formservice.sr-sandb.appsquared.io/api/v1/signrequest-quick-create/}

@@ -62,72 +62,72 @@ public class ServiceProviderConfig extends WebSecurityConfigurerAdapter {
         return super.authenticationManagerBean();
     }
 
-//    @Override
-//    protected void configure(HttpSecurity http) throws Exception {
-//        WebSSOProfileOptions webSSOProfileOptions = new WebSSOProfileOptions();
-//        List<String> authnContext = new ArrayList<>();
-//        authnContext.add("http://idmanagement.gov/ns/assurance/aal/2");
-//        authnContext.add("http://idmanagement.gov/ns/assurance/ial/2");
-//        authnContext.add("http://idmanagement.gov/ns/requested_attributes?ReqAttr=email,phone,first_name,last_name,address1,address2,city,state,zipcode,phone,ssn");
-//        webSSOProfileOptions.setAuthnContexts(authnContext);
-//        // @formatter:off
-//        http.authorizeRequests()
-//            .antMatchers("/faas/saml*").permitAll()
-//            .and()
-//            .httpBasic()
-//            .disable()
-//            .csrf()
-//            .disable()
-//            .anonymous()
-//            .and()
-//            .apply(samlConfig())
-//            .serviceProvider()
-//            .metadataGenerator()
-//            .entityId(this.entityId)
-//            //  .bindingsSSO("artifact", "post", "paos")
-//            .and()
-//            .ecpProfile()
-//            .and()
-//            .sso()
-//            .profileOptions(webSSOProfileOptions)
-//            .defaultSuccessURL("/faas/ui")
-////            .idpSelectionPageURL("/idpselection")
-//            .and()
-//            .authenticationProvider()
-//            .userDetailsService(new UserDetails())
-//            .and()
-//            .metadataManager()
-//            .metadataLocations(this.metadataUrl)
-//            .refreshCheckInterval(0)
-//            .and()
-//            .extendedMetadata()
-//            .ecpEnabled(true)
-//            .idpDiscoveryEnabled(false)//set to false for no IDP Selection page.
-//            .and()
-//            .keyManager()
-////            .storeLocation("classpath:config/tls/keystore.p12")
-//            .privateKeyDERLocation("classpath:config/tls/localhost.key.der")
-//            .publicKeyPEMLocation("classpath:config/tls/localhost.cert")
-//            .and()
-//            .http()
-//            .authorizeRequests()
-//            .requestMatchers(samlConfig().endpointsMatcher()).permitAll()
-//            .and()
-//            .authorizeRequests()
-//            .anyRequest()
-//            .authenticated();
-//        // @formatter:on
-//    }
-
-     @Override
-    public void configure(HttpSecurity http) throws Exception {
-        http.cors().and().csrf().disable()
-            .exceptionHandling()
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        WebSSOProfileOptions webSSOProfileOptions = new WebSSOProfileOptions();
+        List<String> authnContext = new ArrayList<>();
+        authnContext.add("http://idmanagement.gov/ns/assurance/aal/2");
+        authnContext.add("http://idmanagement.gov/ns/assurance/ial/2");
+        authnContext.add("http://idmanagement.gov/ns/requested_attributes?ReqAttr=email,phone,first_name,last_name,address1,address2,city,state,zipcode,phone,ssn");
+        webSSOProfileOptions.setAuthnContexts(authnContext);
+        // @formatter:off
+        http.authorizeRequests()
+            .antMatchers("/faas/saml*").permitAll()
             .and()
-            .headers()
-            .frameOptions()
-            .disable();
-   }
+            .httpBasic()
+            .disable()
+            .csrf()
+            .disable()
+            .anonymous()
+            .and()
+            .apply(samlConfig())
+            .serviceProvider()
+            .metadataGenerator()
+            .entityId(this.entityId)
+            //  .bindingsSSO("artifact", "post", "paos")
+            .and()
+            .ecpProfile()
+            .and()
+            .sso()
+            .profileOptions(webSSOProfileOptions)
+            .defaultSuccessURL("/faas/ui")
+//            .idpSelectionPageURL("/idpselection")
+            .and()
+            .authenticationProvider()
+            .userDetailsService(new UserDetails())
+            .and()
+            .metadataManager()
+            .metadataLocations(this.metadataUrl)
+            .refreshCheckInterval(0)
+            .and()
+            .extendedMetadata()
+            .ecpEnabled(true)
+            .idpDiscoveryEnabled(false)//set to false for no IDP Selection page.
+            .and()
+            .keyManager()
+//            .storeLocation("classpath:config/tls/keystore.p12")
+            .privateKeyDERLocation("classpath:config/tls/localhost.key.der")
+            .publicKeyPEMLocation("classpath:config/tls/localhost.cert")
+            .and()
+            .http()
+            .authorizeRequests()
+            .requestMatchers(samlConfig().endpointsMatcher()).permitAll()
+            .and()
+            .authorizeRequests()
+            .anyRequest()
+            .authenticated();
+        // @formatter:on
+    }
+     // uncomment this to skip auth
+//     @Override
+//    public void configure(HttpSecurity http) throws Exception {
+//        http.cors().and().csrf().disable()
+//            .exceptionHandling()
+//            .and()
+//            .headers()
+//            .frameOptions()
+//            .disable();
+//   }
     @Override
     public void configure(WebSecurity web) {
         web.ignoring()
