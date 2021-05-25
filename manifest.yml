@@ -1,9 +1,9 @@
 ---
 applications:
-  - name: formservice
+  - name: irs8831
     path: .
     instances: 1
-    memory: 2G
+    memory: 1G
     buildpacks:
       - https://github.com/cloudfoundry/java-buildpack
     env:
