@@ -102,7 +102,7 @@ security:
         #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
 #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas-local}
 #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
-host: ${HOST:irs8831-demo.app.cloud.gov}
+host: ${HOST:irs8821.app.cloud.gov}
 port: ${PORT:8080}
 
 #sign request

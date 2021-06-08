@@ -1,6 +1,6 @@
 ---
 applications:
-  - name: irs8831
+  - name: irs8821
     path: .
     instances: 1
     memory: 1G

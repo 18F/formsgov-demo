@@ -17,7 +17,7 @@ export const Home = () => {
     login();
     getUser();
   }, []);
-  const xAllow = `GET:/project/5f6a32fb7974387303dc6859/form/5fd14dd2ba8cc517f0ec74e4/submission/${submissionId}/download`;
+  const xAllow = `GET:/project/60a2b672e4035e3c8c66c58f/form/60a7cefe5fe379dfb93fc1fa/submission/${submissionId}/download`;
   const requestData = {
     data: {
       email: 'service@gsa.gov',
@@ -36,7 +36,7 @@ export const Home = () => {
   };
 
   const login = async () => {
-    http.post('https://portal-dev.forms.gov/dev/admin/login', requestData).then(response => {
+    http.post('https://portal-test.forms.gov/development/admin/login', requestData).then(response => {
       setJwtToken(response.headers['x-jwt-token']);
       console.log(response.status);
     });
@@ -49,7 +49,8 @@ export const Home = () => {
   };
 
   const getSignedRequest = async key => {
-    const pdfUrl = 'https://portal-dev.forms.gov/dev/form/5fd14dd2ba8cc517f0ec74e4/submission/' + submissionId + '/download?token=' + key;
+    const pdfUrl =
+      'https://portal-test.forms.gov/development/form/60a7cefe5fe379dfb93fc1fa/submission/' + submissionId + '/download?token=' + key;
     const pdfName = 'F8821.pdf';
     const { data: response } = await http.get('api/sign', {
       params: {
@@ -66,7 +67,7 @@ export const Home = () => {
   const getATokenKeyAndSign = async () => {
     console.log('jwtToken **** ' + jwtToken);
     http
-      .get('https://portal-dev.forms.gov/dev/token', {
+      .get('https://portal-test.forms.gov/development/token', {
         headers: {
           'x-jwt-token': jwtToken,
           'x-allow': xAllow,
@@ -101,7 +102,7 @@ export const Home = () => {
       {embedUrl === '' ? (
         <div>
           <Form
-            src="https://portal-dev.forms.gov/dev/irs8821"
+            src="https://portal-test.forms.gov/development/irs8821"
             onSubmitDone={handleOnSubmitDone}
             onSubmit={handleOnSubmit}
             submission={submissionData}
