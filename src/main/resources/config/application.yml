@@ -97,14 +97,14 @@ logging:
 security:
     saml2:
          entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
-         metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
+         metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2021}
         #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas}
-        #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
+        #        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2021}
 #        entityId: ${ENTITYID:urn:gov:gsa:SAML:2.0.profiles:sp:sso:irs:faas-local}
-#        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2020}
+#        metadata-url: ${METADATA_URL:https://idp.int.identitysandbox.gov/api/saml/metadata2021}
 host: ${HOST:irs8821.app.cloud.gov}
 port: ${PORT:8080}
 
 #sign request
 sign-request-token: ${SIGN_REQUEST_TOKEN:}
-sign-request-url: ${SIGN_REQUEST_URL:https://formservice.sr-sandb.appsquared.io/api/v1/signrequest-quick-create/}
+sign-request-url: ${SIGN_REQUEST_URL:https://irs8821.sign-test.forms.gov/api/v1/signrequest-quick-create/}
