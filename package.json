@@ -32,7 +32,7 @@
     "mdbreact": "^4.11.0",
     "moment": "2.22.2",
     "mui-datatables": "2.0.0-beta-52",
-    "node-sass": "^4.14.0",
+    "node-sass": "^5.0.0",
     "prop-types": "^15.6.2",
     "react": "16.13.1",
     "react-accessible-accordion": "^2.4.5",
